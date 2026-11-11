@@ -48,6 +48,8 @@
         }
         .logo-text span { color: var(--neon-green); -webkit-text-fill-color: var(--neon-green); }
 
+        .user-actions { display: flex; align-items: center; gap: 12px; }
+
         .btn-neon {
             background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
             padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
@@ -110,7 +112,7 @@
         .game-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
         .rating { color: #ffcc00; }
 
-        /* Game Detail Modal */
+        /* Modal Base */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
@@ -118,14 +120,40 @@
         }
         .modal-content {
             background: var(--bg-card); border: 1px solid var(--neon-green); border-radius: 12px;
-            padding: 25px; width: 100%; max-width: 550px; position: relative;
+            padding: 25px; width: 100%; max-width: 500px; position: relative;
             box-shadow: 0 0 30px var(--neon-green-glow); max-height: 90vh; overflow-y: auto;
         }
         .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; }
 
+        /* Auth Form Styles */
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; }
+        .auth-tab { padding: 10px 20px; cursor: pointer; color: var(--text-muted); font-weight: 600; font-size: 1.1rem; }
+        .auth-tab.active { color: var(--neon-green); border-bottom: 2px solid var(--neon-green); }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--text-silver); }
+        .form-control {
+            width: 100%; padding: 12px; background: #000; border: 1px solid #333;
+            border-radius: 6px; color: #fff; font-size: 1rem;
+        }
+        .form-control:focus { outline: none; border-color: var(--neon-green); }
+
+        /* Mobile Bottom Nav */
+        .mobile-bottom-nav {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--bg-nav); border-top: 1px solid var(--border-color);
+            z-index: 1000; padding: 8px 0; justify-content: space-around;
+        }
+        .mobile-nav-item {
+            color: var(--text-muted); text-decoration: none; display: flex;
+            flex-direction: column; align-items: center; font-size: 0.75rem; gap: 4px;
+        }
+        .mobile-nav-item.active { color: var(--neon-green); }
+
         @media (max-width: 768px) {
             .game-grid { grid-template-columns: repeat(2, 1fr); }
             .platform-btn { font-size: 0.95rem; }
+            .mobile-bottom-nav { display: flex; }
         }
     </style>
 </head>
@@ -142,7 +170,13 @@
                 <i class="fa-solid fa-gamepad fa-2x" style="color: var(--neon-green)"></i>
                 <div class="logo-text">MT <span>GAMEZONE</span></div>
             </a>
-            <button class="btn-neon" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> แชร์เว็บ</button>
+            
+            <div class="user-actions">
+                <button class="btn-neon" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> แชร์เว็บ</button>
+                <div id="auth-buttons">
+                    <button class="btn-neon-solid" onclick="openAuthModal('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -165,10 +199,18 @@
 
     </div>
 
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="#" class="mobile-nav-item active"><i class="fa-solid fa-house"></i>หน้าแรก</a>
+        <a href="#" class="mobile-nav-item" onclick="switchPlatform('mobile')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
+        <a href="#" class="mobile-nav-item" onclick="switchPlatform('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
+        <a href="#" class="mobile-nav-item" onclick="openAuthModal('login')"><i class="fa-solid fa-user"></i>บัญชี</a>
+    </div>
+
     <!-- Game Detail Modal -->
     <div class="modal" id="gameModal">
         <div class="modal-content">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal()"></i>
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('gameModal')"></i>
             <img id="m-img" src="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
             <h2 id="m-title" style="color: var(--neon-green); margin-bottom: 5px;"></h2>
             <div style="display: flex; gap: 15px; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
@@ -180,6 +222,52 @@
             <button class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;" onclick="alert('เริ่มดาวน์โหลด/เปิดลิงก์ไปยังหน้าร้านค้า')">
                 <i class="fa-solid fa-download"></i> ดาวน์โหลด / เล่นเกมนี้
             </button>
+        </div>
+    </div>
+
+    <!-- Login / Register Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('authModal')"></i>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">เข้าสู่ระบบ</div>
+                <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">สมัครสมาชิก</div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" onsubmit="handleAuth(event, 'login')">
+                <div class="form-group">
+                    <label>อีเมล (Email)</label>
+                    <input type="email" class="form-control" placeholder="example@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>รหัสผ่าน (Password)</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 20px;">
+                    <label style="cursor: pointer;"><input type="checkbox"> จดจำฉันไว้</label>
+                    <a href="#" style="color: var(--neon-green); text-decoration: none;" onclick="showToast('ลิงก์รีเซ็ตรหัสผ่านถูกส่งไปยังอีเมลของคุณแล้ว')">ลืมรหัสผ่าน?</a>
+                </div>
+                <button type="submit" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">เข้าสู่ระบบ</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-register" style="display: none;" onsubmit="handleAuth(event, 'register')">
+                <div class="form-group">
+                    <label>ชื่อผู้ใช้งาน (Username)</label>
+                    <input type="text" class="form-control" placeholder="Gamer123" required>
+                </div>
+                <div class="form-group">
+                    <label>อีเมล (Email)</label>
+                    <input type="email" class="form-control" placeholder="example@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>รหัสผ่าน (Password)</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">สมัครสมาชิก</button>
+            </form>
         </div>
     </div>
 
@@ -210,14 +298,12 @@
             { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games', rating: 4.9, size: '120 GB', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง' }
         ];
 
-        let currentPlatform = 'mobile';
-
         function renderTopGames(data) {
             const grid = document.getElementById('topGameGrid');
             grid.innerHTML = data.map(game => {
                 let rankClass = game.rank <= 3 ? `rank-${game.rank}` : '';
                 return `
-                    <div class="game-card" onclick='openModal(${JSON.stringify(game)})'>
+                    <div class="game-card" onclick='openModal("gameModal", ${JSON.stringify(game)})'>
                         <div class="rank-badge ${rankClass}">#${game.rank}</div>
                         <img src="${game.img}" class="game-img" alt="${game.title}">
                         <div class="game-info">
@@ -233,35 +319,78 @@
         }
 
         function switchPlatform(type) {
-            currentPlatform = type;
             document.getElementById('btn-mobile').classList.toggle('active', type === 'mobile');
             document.getElementById('btn-pc').classList.toggle('active', type === 'pc');
             renderTopGames(type === 'mobile' ? mobileGames : pcGames);
         }
 
-        function openModal(game) {
-            document.getElementById('m-img').src = game.img;
-            document.getElementById('m-title').innerText = `#${game.rank} ${game.title}`;
-            document.getElementById('m-publisher').innerHTML = `<i class="fa-solid fa-building"></i> ${game.publisher}`;
-            document.getElementById('m-rating').innerHTML = `<i class="fa-solid fa-star"></i> ${game.rating}`;
-            document.getElementById('m-size').innerHTML = `<i class="fa-solid fa-hard-drive"></i> ${game.size}`;
-            document.getElementById('m-desc').innerText = game.desc;
-            document.getElementById('gameModal').style.display = 'flex';
+        function openModal(modalId, game = null) {
+            if(game) {
+                document.getElementById('m-img').src = game.img;
+                document.getElementById('m-title').innerText = `#${game.rank} ${game.title}`;
+                document.getElementById('m-publisher').innerHTML = `<i class="fa-solid fa-building"></i> ${game.publisher}`;
+                document.getElementById('m-rating').innerHTML = `<i class="fa-solid fa-star"></i> ${game.rating}`;
+                document.getElementById('m-size').innerHTML = `<i class="fa-solid fa-hard-drive"></i> ${game.size}`;
+                document.getElementById('m-desc').innerText = game.desc;
+            }
+            document.getElementById(modalId).style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('gameModal').style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openAuthModal(type) {
+            openModal('authModal');
+            switchAuthTab(type);
+        }
+
+        function switchAuthTab(type) {
+            if(type === 'login') {
+                document.getElementById('tab-login').classList.add('active');
+                document.getElementById('tab-register').classList.remove('active');
+                document.getElementById('form-login').style.display = 'block';
+                document.getElementById('form-register').style.display = 'none';
+            } else {
+                document.getElementById('tab-register').classList.add('active');
+                document.getElementById('tab-login').classList.remove('active');
+                document.getElementById('form-register').style.display = 'block';
+                document.getElementById('form-login').style.display = 'none';
+            }
+        }
+
+        function handleAuth(e, type) {
+            e.preventDefault();
+            showToast(type === 'login' ? "เข้าสู่ระบบสำเร็จแล้ว!" : "สมัครสมาชิกสำเร็จแล้ว!");
+            closeModal('authModal');
+            document.getElementById('auth-buttons').innerHTML = `
+                <span style="color: var(--neon-green); font-weight: bold; margin-right: 8px;">
+                    <i class="fa-solid fa-user-check"></i> ผู้ใช้งาน (Gamer)
+                </span>
+                <button class="btn-neon" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+            `;
+        }
+
+        function logout() {
+            showToast("ออกจากระบบแล้ว");
+            document.getElementById('auth-buttons').innerHTML = `
+                <button class="btn-neon-solid" onclick="openAuthModal('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
+            `;
         }
 
         function copyLink() {
             navigator.clipboard.writeText("https://mtgamezone.netlify.app").then(() => {
-                const toast = document.getElementById('toast');
-                toast.style.display = 'flex';
-                setTimeout(() => { toast.style.display = 'none'; }, 3000);
+                showToast("คัดลอกลิงก์สำเร็จแล้ว!");
             });
         }
 
-        // Default Render
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
         renderTopGames(mobileGames);
     </script>
 </body>
