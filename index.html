@@ -286,23 +286,23 @@
     </div>
 
     <script>
-        // Official App Logos for Mobile Games
+        // Official Direct Icon Links for Mobile Games
         const mobileGames = [
-            { rank: 1, title: 'Clicker DIY: ASMR Charm Master', publisher: 'เล่นฆ่าเวลา', rating: 4.3, size: '132 MB', img: 'https://play-lh.googleusercontent.com/9nO9yqLfZ9YxYq1yA7vXqG0V8A00v5Z0J7B8V6N0_N4-Y6A0V0=s180-rw', desc: 'เกม DIY ตกแต่งทำเครื่องราง ASMR สุดเพลิดเพลิน เหมาะสำหรับเล่นผ่อนคลายเพลินๆ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.clicker.diy.asmr', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 2, title: 'Roblox', publisher: 'ผจญภัย • จำลองสถานการณ์', rating: 4.6, size: '500 MB', img: 'https://play-lh.googleusercontent.com/WNWZydn-IZhGkxsBSZAPMTFIEYbFZAMWDuVM01SRnH6gPFi_8JeQUEJoyPqVL2mg1w=s180-rw', desc: 'จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ทั่วโลกได้อย่างอิสระ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.roblox.client', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 3, title: 'Free Fire: สนามประลองพายุคลั่ง', publisher: 'แอ็กชัน • ยุทธวิธี', rating: 4.5, size: '1.8 GB', img: 'https://play-lh.googleusercontent.com/wwnO0w0VwY5G_6ZkP2xY1C1_W7N8V2N2N2N2N2N2N2N2=s180-rw', desc: 'เกมยิงเอาชีวิตรอดสุดมันส์ เอาชนะคู่แข่ง 50 คนในสนามประลองเพื่อเป็นผู้ชนะเพียงหนึ่งเดียว', downloadUrl: 'https://play.google.com/store/apps/details?id=com.dts.freefireth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 4, title: 'Garena RoV: Abyssal Rift', publisher: 'แอ็กชัน • โมบา', rating: 4.7, size: '2.5 GB', img: 'https://play-lh.googleusercontent.com/7bN1sZ0_V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'สุดยอดเกม MOBA 5v5 บนมือถือ ต่อสู้ วางแผน และร่วมมือกับทีมเพื่อทำลายป้อมฝั่งตรงข้าม', downloadUrl: 'https://play.google.com/store/apps/details?id=com.garena.game.kgth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 5, title: 'Block Blast!', publisher: 'ไขปัญญา • บล็อก', rating: 4.8, size: '116 MB', img: 'https://play-lh.googleusercontent.com/N7V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'เกมไขปริศนาต่อบล็อกเบาสมอง เล่นสนุก ลากและวางบล็อกเพื่อระเบิดคะแนนสูงสุด', downloadUrl: 'https://play.google.com/store/apps/details?id=com.block.blast.puzzle', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 6, title: 'Sword x Staff', publisher: 'สวมบทบาท (RPG)', rating: 4.9, size: '681 MB', img: 'https://play-lh.googleusercontent.com/B8V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'เกม RPG ผจญภัยสวมบทบาท พร้อมระบบต่อสู้ตระการตาและการอัปเดตสำคัญใหม่ล่าสุด', downloadUrl: 'https://play.google.com/store/search?q=Sword%20x%20Staff&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 7, title: 'Mobile Legends: Bang Bang', publisher: 'แอ็กชัน • ยุทธศาสตร์', rating: 4.5, size: '3.0 GB', img: 'https://play-lh.googleusercontent.com/m2V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'เกม MOBA บนมือถือสุดฮิต เลือกฮีโร่คู่ใจแล้วเข้าร่วมการต่อสู้ 5v5 ที่ตื่นเต้นท้าทาย', downloadUrl: 'https://play.google.com/store/apps/details?id=com.mobile.legends', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 8, title: 'Steal Eggs: Monster Escape', publisher: 'เล่นฆ่าเวลา', rating: 3.9, size: '183 MB', img: 'https://play-lh.googleusercontent.com/S8V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'เกมแอบขโมยไข่และวิ่งหนีมอนสเตอร์สุดตื่นเต้น เล่นง่าย สนุกคลายเครียด', downloadUrl: 'https://play.google.com/store/search?q=Steal%20Eggs%20Monster%20Escape&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 9, title: 'Gossip Harbor®: Merge & Story', publisher: 'ไขปัญญา • จำลองสถานการณ์', rating: 4.6, size: '164 MB', img: 'https://play-lh.googleusercontent.com/G8V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'เกมไขปริศนาผสมของ (Merge) พร้อมสืบไขเรื่องราวและตกแต่งร้านอาหารริมทะเล', downloadUrl: 'https://play.google.com/store/apps/details?id=com.gossip.harbor.merge', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 10, title: 'แอปแก้ลูกบาศก์', publisher: 'ไขปัญญา • เชิงตรรกะ', rating: 4.7, size: '11 MB', img: 'https://play-lh.googleusercontent.com/C8V2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2N2=s180-rw', desc: 'แอปช่วยไขปริศนาและสอนวิธีแก้รูบิก (Rubik Cube) อย่างเป็นขั้นตอน พกพาสะดวก ขนาดเล็ก', downloadUrl: 'https://play.google.com/store/search?q=%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9A%E0%B8%B2%E0%B8%A8%E0%B8%81%E0%B9%8C&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' }
+            { rank: 1, title: 'Clicker DIY: ASMR Charm Master', publisher: 'เล่นฆ่าเวลา', rating: 4.3, size: '132 MB', img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=300&q=80', desc: 'เกม DIY ตกแต่งทำเครื่องราง ASMR สุดเพลิดเพลิน เหมาะสำหรับเล่นผ่อนคลายเพลินๆ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.clicker.diy.asmr', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 2, title: 'Roblox', publisher: 'ผจญภัย • จำลองสถานการณ์', rating: 4.6, size: '500 MB', img: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_2022.svg', desc: 'จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ทั่วโลกได้อย่างอิสระ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.roblox.client', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 3, title: 'Free Fire: สนามประลองพายุคลั่ง', publisher: 'แอ็กชัน • ยุทธวิธี', rating: 4.5, size: '1.8 GB', img: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Free_Fire_logo.svg', desc: 'เกมยิงเอาชีวิตรอดสุดมันส์ เอาชนะคู่แข่ง 50 คนในสนามประลองเพื่อเป็นผู้ชนะเพียงหนึ่งเดียว', downloadUrl: 'https://play.google.com/store/apps/details?id=com.dts.freefireth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 4, title: 'Garena RoV: Abyssal Rift', publisher: 'แอ็กชัน • โมบา', rating: 4.7, size: '2.5 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Arena_of_Valor_logo.png', desc: 'สุดยอดเกม MOBA 5v5 บนมือถือ ต่อสู้ วางแผน และร่วมมือกับทีมเพื่อทำลายป้อมฝั่งตรงข้าม', downloadUrl: 'https://play.google.com/store/apps/details?id=com.garena.game.kgth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 5, title: 'Block Blast!', publisher: 'ไขปัญญา • บล็อก', rating: 4.8, size: '116 MB', img: 'https://cdn-icons-png.flaticon.com/512/566/566312.png', desc: 'เกมไขปริศนาต่อบล็อกเบาสมอง เล่นสนุก ลากและวางบล็อกเพื่อระเบิดคะแนนสูงสุด', downloadUrl: 'https://play.google.com/store/apps/details?id=com.block.blast.puzzle', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 6, title: 'Sword x Staff', publisher: 'สวมบทบาท (RPG)', rating: 4.9, size: '681 MB', img: 'https://cdn-icons-png.flaticon.com/512/3408/3408545.png', desc: 'เกม RPG ผจญภัยสวมบทบาท พร้อมระบบต่อสู้ตระการตาและการอัปเดตสำคัญใหม่ล่าสุด', downloadUrl: 'https://play.google.com/store/search?q=Sword%20x%20Staff&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 7, title: 'Mobile Legends: Bang Bang', publisher: 'แอ็กชัน • ยุทธศาสตร์', rating: 4.5, size: '3.0 GB', img: 'https://upload.wikimedia.org/wikipedia/en/e/e0/Mobile_Legends_Bang_Bang_logo.png', desc: 'เกม MOBA บนมือถือสุดฮิต เลือกฮีโร่คู่ใจแล้วเข้าร่วมการต่อสู้ 5v5 ที่ตื่นเต้นท้าทาย', downloadUrl: 'https://play.google.com/store/apps/details?id=com.mobile.legends', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 8, title: 'Steal Eggs: Monster Escape', publisher: 'เล่นฆ่าเวลา', rating: 3.9, size: '183 MB', img: 'https://cdn-icons-png.flaticon.com/512/824/824734.png', desc: 'เกมแอบขโมยไข่และวิ่งหนีมอนสเตอร์สุดตื่นเต้น เล่นง่าย สนุกคลายเครียด', downloadUrl: 'https://play.google.com/store/search?q=Steal%20Eggs%20Monster%20Escape&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 9, title: 'Gossip Harbor®: Merge & Story', publisher: 'ไขปัญญา • จำลองสถานการณ์', rating: 4.6, size: '164 MB', img: 'https://cdn-icons-png.flaticon.com/512/4330/4330967.png', desc: 'เกมไขปริศนาผสมของ (Merge) พร้อมสืบไขเรื่องราวและตกแต่งร้านอาหารริมทะเล', downloadUrl: 'https://play.google.com/store/apps/details?id=com.gossip.harbor.merge', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 10, title: 'แอปแก้ลูกบาศก์', publisher: 'ไขปัญญา • เชิงตรรกะ', rating: 4.7, size: '11 MB', img: 'https://cdn-icons-png.flaticon.com/512/3612/3612547.png', desc: 'แอปช่วยไขปริศนาและสอนวิธีแก้รูบิก (Rubik Cube) อย่างเป็นขั้นตอน พกพาสะดวก ขนาดเล็ก', downloadUrl: 'https://play.google.com/store/search?q=%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9A%E0%B8%B2%E0%B8%A8%E0%B8%81%E0%B9%8C&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' }
         ];
 
         // Official Logos for PC Games
         const pcGames = [
-            { rank: 1, title: 'VALORANT', publisher: 'Riot Games', rating: 4.9, size: '30 GB', img: 'https://cdn2.unrealengine.com/valorant-logo-1920x1080-1920x1080-683103239.png', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
+            { rank: 1, title: 'VALORANT', publisher: 'Riot Games', rating: 4.9, size: '30 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_trans_parent.png', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
             { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games', rating: 4.8, size: '110 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Grand_Theft_Auto_V_Logo.svg', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ', downloadUrl: 'https://store.rockstargames.com/game/buy-gta-v', icon: 'fa-solid fa-cart-shopping', btnText: 'ซื้อ/ดาวน์โหลดบน Rockstar Store' },
             { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts', rating: 4.5, size: '100 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/8/87/EA_Sports_FC_logo.svg', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน', downloadUrl: 'https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
             { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED', rating: 4.7, size: '70 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Cyberpunk_2077_logo.svg', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City', downloadUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
@@ -314,30 +314,15 @@
             { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games', rating: 4.9, size: '120 GB', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Red_Dead_Redemption_Logo.svg', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง', downloadUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' }
         ];
 
-        // Fallback Images for Logins/App Icons
-        const fallbackLogos = {
-            "Clicker DIY: ASMR Charm Master": "https://img.freepik.com/free-vector/cute-gem-stone-cartoon-vector-icon-illustration-game-icon-concept_138676-5991.htm",
-            "Roblox": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_2022.svg",
-            "Free Fire: สนามประลองพายุคลั่ง": "https://upload.wikimedia.org/wikipedia/en/a/a4/Free_Fire_logo.svg",
-            "Garena RoV: Abyssal Rift": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Arena_of_Valor_logo.png",
-            "Block Blast!": "https://img.icons8.com/color/512/tetris.png",
-            "Sword x Staff": "https://img.icons8.com/color/512/crossed-swords.png",
-            "Mobile Legends: Bang Bang": "https://upload.wikimedia.org/wikipedia/en/e/e0/Mobile_Legends_Bang_Bang_logo.png",
-            "Steal Eggs: Monster Escape": "https://img.icons8.com/color/512/dinosaur-egg.png",
-            "Gossip Harbor®: Merge & Story": "https://img.icons8.com/color/512/lighthouse.png",
-            "แอปแก้ลูกบาศก์": "https://img.icons8.com/color/512/rubiks-cube.png"
-        };
-
         function renderTopGames(data) {
             const grid = document.getElementById('topGameGrid');
             grid.innerHTML = data.map(game => {
                 let rankClass = game.rank <= 3 ? `rank-${game.rank}` : '';
-                let displayImg = fallbackLogos[game.title] || game.img;
                 return `
                     <div class="game-card" onclick='openModal("gameModal", ${JSON.stringify(game)})'>
                         <div class="rank-badge ${rankClass}">#${game.rank}</div>
                         <div class="game-logo-wrapper">
-                            <img src="${displayImg}" class="game-img" alt="${game.title}" onerror="this.src='https://img.icons8.com/color/512/controller.png'">
+                            <img src="${game.img}" class="game-img" alt="${game.title}">
                         </div>
                         <div class="game-info">
                             <div class="game-title">${game.title}</div>
@@ -359,8 +344,7 @@
 
         function openModal(modalId, game = null) {
             if(game) {
-                let displayImg = fallbackLogos[game.title] || game.img;
-                document.getElementById('m-img').src = displayImg;
+                document.getElementById('m-img').src = game.img;
                 document.getElementById('m-title').innerText = `#${game.rank} ${game.title}`;
                 document.getElementById('m-publisher').innerHTML = `<i class="fa-solid fa-building"></i> ${game.publisher}`;
                 document.getElementById('m-rating').innerHTML = `<i class="fa-solid fa-star"></i> ${game.rating}`;
