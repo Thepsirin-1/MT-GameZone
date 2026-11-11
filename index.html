@@ -191,7 +191,7 @@
                 <i class="fa-solid fa-mobile-screen-button"></i> Mobile Games
             </button>
             <button class="platform-btn" id="btn-pc" onclick="switchPlatform('pc')">
-                <i class="fa-solid fa-desktop"></i> PC Games
+                <i class="fa-solid fa-desktop"></i> PC Games (Official Stores)
             </button>
         </div>
 
@@ -221,7 +221,7 @@
             </div>
             <p id="m-desc" style="line-height: 1.6; color: #ccc; margin-bottom: 20px;"></p>
             <a id="m-download-btn" href="#" target="_blank" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">
-                <i class="fa-brands fa-google-play"></i> ดาวน์โหลด / เล่นเกมนี้
+                <i class="fa-solid fa-download"></i> ดาวน์โหลด / เล่นเกมนี้
             </a>
         </div>
     </div>
@@ -274,29 +274,29 @@
 
     <script>
         const mobileGames = [
-            { rank: 1, title: 'ROV: Arena of Valor', publisher: 'Garena', rating: 4.7, size: '2.5 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกม MOBA บนมือถือยอดฮิตอันดับ 1 ในไทย ต่อสู้แบบ 5v5 สุดมันส์', playstore: 'https://play.google.com/store/apps/details?id=com.garena.game.kgth' },
-            { rank: 2, title: 'Free Fire', publisher: 'Garena', rating: 4.5, size: '1.8 GB', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิงเอาชีวิตรอดบนมือถือ เอาชนะคู่แข่ง 50 คนในเวลา 10 นาที', playstore: 'https://play.google.com/store/apps/details?id=com.dts.freefireth' },
-            { rank: 3, title: 'PUBG MOBILE', publisher: 'Tencent Games', rating: 4.6, size: '3.1 GB', img: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80', desc: 'ต้นตำรับเกม Battle Royale กราฟิกสมจริง เล่นร่วมกับเพื่อนทั่วโลก', playstore: 'https://play.google.com/store/apps/details?id=com.tencent.ig' },
-            { rank: 4, title: 'Genshin Impact', publisher: 'COGNOSPHERE', rating: 4.8, size: '20 GB', img: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=400&q=80', desc: 'เกม Action RPG โอเพ่นเวิลด์ท่องโลกกว้างพร้อมระบบธาตุสุดตระการตา', playstore: 'https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact' },
-            { rank: 5, title: 'Honkai: Star Rail', publisher: 'COGNOSPHERE', rating: 4.7, size: '15 GB', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', desc: 'เกม Turn-based RPG ท่องอวกาศ กราฟิกสไตล์อนิเมะระดับพรีเมียม', playstore: 'https://play.google.com/store/apps/details?id=com.HoYoverse.hkrpgoversea' },
-            { rank: 6, title: 'ROX: Ragnarok X', publisher: 'Nuverse', rating: 4.4, size: '4.2 GB', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80', desc: 'การกลับมาของตำนาน MMORPG ในรูปแบบ 3D โอเพ่นเวิลด์บนมือถือ', playstore: 'https://play.google.com/store/apps/details?id=com.playangamer.rox.gp' },
-            { rank: 7, title: 'Call of Duty: Mobile', publisher: 'Garena', rating: 4.7, size: '4.5 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกม FPS ระดับตำนาน รวบรวมแมปและโหมดการเล่นยอดฮิตไว้บนมือถือ', playstore: 'https://play.google.com/store/apps/details?id=com.garena.game.codm' },
-            { rank: 8, title: 'Roblox', publisher: 'Roblox Corporation', rating: 4.6, size: '500 MB', img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=400&q=80', desc: 'จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ได้', playstore: 'https://play.google.com/store/apps/details?id=com.roblox.client' },
-            { rank: 9, title: 'eFootball 2026', publisher: 'KONAMI', rating: 4.3, size: '3.8 GB', img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400&q=80', desc: 'สัมผัสประสบการณ์เกมฟุตบอลสุดสมจริงจาก Konami ควบคุมได้ดั่งใจ', playstore: 'https://play.google.com/store/apps/details?id=jp.konami.pesam' },
-            { rank: 10, title: 'Identity V', publisher: 'NetEase Games', rating: 4.5, size: '4.0 GB', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', desc: 'เกมเอาชีวิตรอดแนวสยองขวัญ 1v4 กราฟิกสไตล์โกธิกอันมีเอกลักษณ์', playstore: 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay' }
+            { rank: 1, title: 'ROV: Arena of Valor', publisher: 'Garena', rating: 4.7, size: '2.5 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกม MOBA บนมือถือยอดฮิตอันดับ 1 ในไทย ต่อสู้แบบ 5v5 สุดมันส์', downloadUrl: 'https://play.google.com/store/apps/details?id=com.garena.game.kgth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 2, title: 'Free Fire', publisher: 'Garena', rating: 4.5, size: '1.8 GB', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิงเอาชีวิตรอดบนมือถือ เอาชนะคู่แข่ง 50 คนในเวลา 10 นาที', downloadUrl: 'https://play.google.com/store/apps/details?id=com.dts.freefireth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 3, title: 'PUBG MOBILE', publisher: 'Tencent Games', rating: 4.6, size: '3.1 GB', img: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80', desc: 'ต้นตำรับเกม Battle Royale กราฟิกสมจริง เล่นร่วมกับเพื่อนทั่วโลก', downloadUrl: 'https://play.google.com/store/apps/details?id=com.tencent.ig', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 4, title: 'Genshin Impact', publisher: 'COGNOSPHERE', rating: 4.8, size: '20 GB', img: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=400&q=80', desc: 'เกม Action RPG โอเพ่นเวิลด์ท่องโลกกว้างพร้อมระบบธาตุสุดตระการตา', downloadUrl: 'https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 5, title: 'Honkai: Star Rail', publisher: 'COGNOSPHERE', rating: 4.7, size: '15 GB', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', desc: 'เกม Turn-based RPG ท่องอวกาศ กราฟิกสไตล์อนิเมะระดับพรีเมียม', downloadUrl: 'https://play.google.com/store/apps/details?id=com.HoYoverse.hkrpgoversea', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 6, title: 'ROX: Ragnarok X', publisher: 'Nuverse', rating: 4.4, size: '4.2 GB', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80', desc: 'การกลับมาของตำนาน MMORPG ในรูปแบบ 3D โอเพ่นเวิลด์บนมือถือ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.playangamer.rox.gp', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 7, title: 'Call of Duty: Mobile', publisher: 'Garena', rating: 4.7, size: '4.5 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกม FPS ระดับตำนาน รวบรวมแมปและโหมดการเล่นยอดฮิตไว้บนมือถือ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.garena.game.codm', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 8, title: 'Roblox', publisher: 'Roblox Corporation', rating: 4.6, size: '500 MB', img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=400&q=80', desc: 'จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ได้', downloadUrl: 'https://play.google.com/store/apps/details?id=com.roblox.client', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 9, title: 'eFootball 2026', publisher: 'KONAMI', rating: 4.3, size: '3.8 GB', img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400&q=80', desc: 'สัมผัสประสบการณ์เกมฟุตบอลสุดสมจริงจาก Konami ควบคุมได้ดั่งใจ', downloadUrl: 'https://play.google.com/store/apps/details?id=jp.konami.pesam', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
+            { rank: 10, title: 'Identity V', publisher: 'NetEase Games', rating: 4.5, size: '4.0 GB', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', desc: 'เกมเอาชีวิตรอดแนวสยองขวัญ 1v4 กราฟิกสไตล์โกธิกอันมีเอกลักษณ์', downloadUrl: 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' }
         ];
 
         const pcGames = [
-            { rank: 1, title: 'VALORANT', publisher: 'Riot Games', rating: 4.9, size: '30 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร' },
-            { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games', rating: 4.8, size: '110 GB', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ' },
-            { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts', rating: 4.5, size: '100 GB', img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400&q=80', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน' },
-            { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED', rating: 4.7, size: '70 GB', img: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=400&q=80', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City' },
-            { rank: 5, title: 'Elden Ring', publisher: 'FromSoftware', rating: 4.9, size: '60 GB', img: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80', desc: 'เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year' },
-            { rank: 6, title: 'Apex Legends', publisher: 'Electronic Arts', rating: 4.6, size: '75 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว' },
-            { rank: 7, title: 'Monster Hunter Wilds', publisher: 'CAPCOM', rating: 4.8, size: '85 GB', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80', desc: 'ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อนได้ 4 คน' },
-            { rank: 8, title: 'Counter-Strike 2', publisher: 'Valve', rating: 4.6, size: '85 GB', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', desc: 'การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine' },
-            { rank: 9, title: 'Forza Horizon 5', publisher: 'Xbox Game Studios', rating: 4.8, size: '130 GB', img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=400&q=80', desc: 'สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถแข่งลิขสิทธิ์แท้หลายร้อยคัน' },
-            { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games', rating: 4.9, size: '120 GB', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง' }
+            { rank: 1, title: 'VALORANT', publisher: 'Riot Games', rating: 4.9, size: '30 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
+            { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games', rating: 4.8, size: '110 GB', img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ', downloadUrl: 'https://store.rockstargames.com/game/buy-gta-v', icon: 'fa-solid fa-cart-shopping', btnText: 'ซื้อ/ดาวน์โหลดบน Rockstar Store' },
+            { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts', rating: 4.5, size: '100 GB', img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400&q=80', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน', downloadUrl: 'https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED', rating: 4.7, size: '70 GB', img: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=400&q=80', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City', downloadUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 5, title: 'Elden Ring', publisher: 'FromSoftware', rating: 4.9, size: '60 GB', img: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=400&q=80', desc: 'เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year', downloadUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 6, title: 'Apex Legends', publisher: 'Electronic Arts', rating: 4.6, size: '75 GB', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', desc: 'เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว', downloadUrl: 'https://store.steampowered.com/app/1172470/Apex_Legends/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
+            { rank: 7, title: 'Monster Hunter Wilds', publisher: 'CAPCOM', rating: 4.8, size: '85 GB', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80', desc: 'ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อนได้ 4 คน', downloadUrl: 'https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 8, title: 'Counter-Strike 2', publisher: 'Valve', rating: 4.6, size: '85 GB', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', desc: 'การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine', downloadUrl: 'https://store.steampowered.com/app/730/CounterStrike_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
+            { rank: 9, title: 'Forza Horizon 5', publisher: 'Xbox Game Studios', rating: 4.8, size: '130 GB', img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=400&q=80', desc: 'สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถแข่งลิขสิทธิ์แท้หลายร้อยคัน', downloadUrl: 'https://store.steampowered.com/app/1551360/Forza_Horizon_5/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games', rating: 4.9, size: '120 GB', img: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง', downloadUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' }
         ];
 
         function renderTopGames(data) {
@@ -335,15 +335,8 @@
                 document.getElementById('m-desc').innerText = game.desc;
 
                 const dlBtn = document.getElementById('m-download-btn');
-                if(game.playstore) {
-                    dlBtn.href = game.playstore;
-                    dlBtn.innerHTML = `<i class="fa-brands fa-google-play"></i> ดาวน์โหลดบน Play Store`;
-                    dlBtn.onclick = null;
-                } else {
-                    dlBtn.href = "#";
-                    dlBtn.innerHTML = `<i class="fa-solid fa-desktop"></i> ดูรายละเอียดหน้าร้านค้า PC`;
-                    dlBtn.onclick = (e) => { e.preventDefault(); alert(`กำลังเปิดหน้าร้านค้าของ ${game.title}`); };
-                }
+                dlBtn.href = game.downloadUrl;
+                dlBtn.innerHTML = `<i class="${game.icon}"></i> ${game.btnText}`;
             }
             document.getElementById(modalId).style.display = 'flex';
         }
