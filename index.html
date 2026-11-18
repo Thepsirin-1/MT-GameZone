@@ -19,15 +19,21 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
 .logo img{height:42px;border-radius:8px;border:1px solid var(--neon);box-shadow:0 0 10px var(--glow);background:#000}
 .logo-txt{font:900 1.3rem 'Orbitron',sans-serif;color:var(--ttl)}.logo-txt span{color:var(--neon)}
 .btn,.btn-s{padding:8px 13px;border-radius:6px;cursor:pointer;font:600 .88rem 'Kanit';transition:.25s;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;border:1px solid var(--neon)}
-.btn{background:0;color:var(--neon)}.btn:hover,.btn-s,.tab-btn.active,.row:hover .pill,.pill:hover{background:var(--neon);color:var(--btxt);box-shadow:0 0 12px var(--glow)}
+.btn{background:0;color:var(--neon)}.btn:hover,.btn-s,.tab-btn.active,.row:hover .pill,.pill:hover,.dd-opt.active{background:var(--neon);color:var(--btxt);box-shadow:0 0 12px var(--glow)}
 .hero{display:flex;justify-content:center;margin:10px 0 24px;padding:18px;background:radial-gradient(circle,rgba(0,255,102,.15),#0d1017 75%);border-radius:16px;border:1px solid var(--bd);box-shadow:0 8px 25px rgba(0,0,0,.35)}
 .hero img{max-width:300px;width:100%;border-radius:14px;box-shadow:0 0 22px var(--glow);border:1px solid rgba(0,255,102,.4)}
 .title{font:700 1.35rem 'Kanit';color:var(--ttl);margin-bottom:14px;display:flex;align-items:center;gap:10px;border-left:4px solid var(--neon);padding-left:12px}
 .f-bar{margin-bottom:14px}.s-box{position:relative;flex:1}.s-box i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut)}
-.sel-wrap{position:relative;min-width:195px}.sel-wrap i{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--mut);pointer-events:none;font-size:.82rem}
-.s-in,.s-sel,.fc{padding:11px 16px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--ttl);font-size:.95rem;outline:0;transition:.25s;width:100%}
-.s-in{padding-left:42px}.s-sel{appearance:none;-webkit-appearance:none;padding:11px 28px;text-align:center;text-align-last:center;cursor:pointer}.s-sel option{padding:0;text-align:center}
-.s-in:focus,.s-sel:focus,.fc:focus{border-color:var(--neon);box-shadow:0 0 12px var(--glow)}
+.s-in,.dd-btn,.fc{padding:11px 16px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--ttl);font-size:.95rem;outline:0;transition:.25s;width:100%}
+.s-in{padding-left:42px}.s-in:focus,.dd.open .dd-btn,.fc:focus{border-color:var(--neon);box-shadow:0 0 12px var(--glow)}
+.dd{position:relative;min-width:195px;user-select:none}
+.dd-btn{display:flex;align-items:center;padding:11px 15px 11px 12px;cursor:pointer}
+.dd-btn span{flex:1;text-align:center}.dd-btn i{color:var(--mut);font-size:.82rem;transition:.2s}
+.dd.open .dd-btn i{transform:rotate(180deg);color:var(--neon)}
+.dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;width:100%;background:var(--card);border:1px solid var(--neon);border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.35);z-index:500}
+.dd.open .dd-menu{display:block}
+.dd-opt{padding:10px 12px;text-align:center;font-size:.93rem;cursor:pointer;transition:.15s}
+.dd-opt:hover:not(.active){background:var(--hover);color:var(--neon)}.dd-opt.active{font-weight:600;box-shadow:none}
 .tabs{margin-bottom:18px;background:var(--card);padding:6px;border-radius:12px;border:1px solid var(--bd)}
 .tab-btn{flex:1;padding:10px;border:0;background:0;color:var(--mut);font:600 .95rem 'Kanit';border-radius:8px;cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:6px}
 .list{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
@@ -52,7 +58,7 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
 .b-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:var(--nav);border-top:1px solid var(--bd);z-index:1000;padding:8px 0;justify-content:space-around}
 .b-item{color:var(--mut);text-decoration:none;display:flex;flex-direction:column;align-items:center;font-size:.75rem;gap:4px}.b-item.active{color:var(--neon)}
 @media(max-width:768px){.logo-txt{font-size:1.05rem}.hide-m{display:none}.hero img{max-width:240px}.row{padding:10px;gap:10px}.icon{width:52px;height:52px}.pill{padding:6px 10px;font-size:.8rem}.b-nav{display:flex}}
-@media(max-width:600px){.f-bar{flex-direction:column}.sel-wrap{width:100%}}
+@media(max-width:600px){.f-bar{flex-direction:column}.dd{width:100%}}
 </style>
 </head>
 <body>
@@ -71,14 +77,14 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
   <div class="title"><i class="fa-solid fa-trophy" style="color:var(--neon)"></i> 10 อันดับเกมยอดนิยม</div>
   <div class="f-bar">
     <div class="s-box"><i class="fa-solid fa-magnifying-glass"></i><input id="q" class="s-in" placeholder="ค้นหาชื่อเกม หรือแนวเกม (เช่น RPG, ยิง, Roblox)..." oninput="render()"></div>
-    <div class="sel-wrap">
-      <select id="sortBy" class="s-sel" onchange="render()">
-        <option value="rank">อันดับยอดนิยม</option>
-        <option value="rate">คะแนนรีวิวสูงสุด</option>
-        <option value="s_desc">ขนาดไฟล์ : ใหญ่ > เล็ก</option>
-        <option value="s_asc">ขนาดไฟล์ : เล็ก > ใหญ่</option>
-      </select>
-      <i class="fa-solid fa-chevron-down"></i>
+    <div class="dd" id="sortDD">
+      <div class="dd-btn" onclick="event.stopPropagation();this.parentElement.classList.toggle('open')"><span id="sortLbl">อันดับยอดนิยม</span><i class="fa-solid fa-chevron-down"></i></div>
+      <div class="dd-menu">
+        <div class="dd-opt active" onclick="setSort('rank',this)">อันดับยอดนิยม</div>
+        <div class="dd-opt" onclick="setSort('rate',this)">คะแนนรีวิวสูงสุด</div>
+        <div class="dd-opt" onclick="setSort('s_desc',this)">ขนาดไฟล์ : ใหญ่ &gt; เล็ก</div>
+        <div class="dd-opt" onclick="setSort('s_asc',this)">ขนาดไฟล์ : เล็ก &gt; ใหญ่</div>
+      </div>
     </div>
   </div>
   <div class="tabs">
@@ -155,9 +161,11 @@ data={
   ]
 };
 
-let cur='mob',curUser=null,favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
+let cur='mob',sortBy='rank',curUser=null,favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
 const allGames=[...data.mob.map((g,i)=>({p:'mob',r:i+1,g})),...data.pc.map((g,i)=>({p:'pc',r:i+1,g}))];
 
+window.onclick=e=>{if(!e.target.closest('#sortDD'))$('sortDD').classList.remove('open')};
+window.setSort=(v,el)=>{sortBy=v;$('sortLbl').innerText=el.innerText;document.querySelectorAll('.dd-opt').forEach(o=>o.classList.remove('active'));el.classList.add('active');$('sortDD').classList.remove('open');render()};
 window.toggleTheme=()=>{const L=document.body.classList.toggle('light');$('themeBtn').innerHTML=`<i class="fa-solid fa-${L?'moon':'sun'}"></i>`;localStorage.setItem('mt_theme',L?'light':'dark')};
 if(localStorage.getItem('mt_theme')==='light')toggleTheme();
 window.setPlat=t=>{cur=t;['mob','pc','fav'].forEach(k=>$('b-'+k).classList.toggle('active',t===k));render()};
@@ -171,12 +179,12 @@ window.toggleFav=async(n,e)=>{
 
 window.render=()=>{
   $('favCnt').innerText=favs.length;
-  const kw=$('q').value.trim().toLowerCase(),s=$('sortBy').value;
+  const kw=$('q').value.trim().toLowerCase();
   let list=cur==='fav'?allGames.filter(x=>favs.includes(x.g[0])):data[cur].map((g,i)=>({p:cur,r:i+1,g}));
   if(kw)list=list.filter(x=>x.g[0].toLowerCase().includes(kw)||x.g[1].toLowerCase().includes(kw));
-  if(s==='rate')list.sort((a,b)=>b.g[2]-a.g[2]);
-  else if(s==='s_asc')list.sort((a,b)=>toMB(a.g[3])-toMB(b.g[3]));
-  else if(s==='s_desc')list.sort((a,b)=>toMB(b.g[3])-toMB(a.g[3]));
+  if(sortBy==='rate')list.sort((a,b)=>b.g[2]-a.g[2]);
+  else if(sortBy==='s_asc')list.sort((a,b)=>toMB(a.g[3])-toMB(b.g[3]));
+  else if(sortBy==='s_desc')list.sort((a,b)=>toMB(b.g[3])-toMB(a.g[3]));
 
   $('gameList').innerHTML=list.length?list.map(({p,r,g})=>{
     const lk=favs.includes(g[0]);
