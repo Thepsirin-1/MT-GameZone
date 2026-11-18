@@ -27,7 +27,7 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
 .s-in,.dd-btn,.fc{padding:11px 16px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--ttl);font-size:.95rem;outline:0;transition:.25s;width:100%}
 .s-in{padding-left:42px}.s-in:focus,.dd.open .dd-btn,.fc:focus{border-color:var(--neon);box-shadow:0 0 12px var(--glow)}
 .dd{position:relative;min-width:195px;user-select:none}
-.dd-btn{display:flex;align-items:center;gap:8px;padding:11px 16px 11px 10px;cursor:pointer}
+.dd-btn{display:flex;align-items:center;gap:8px;padding:11px 16px 11px 0;cursor:pointer}
 .dd-btn span{flex:1;text-align:center}.dd-btn i{color:var(--mut);font-size:.82rem;transition:.2s}
 .dd.open .dd-btn i{transform:rotate(180deg);color:var(--neon)}
 .dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;width:100%;background:var(--card);border:1px solid var(--neon);border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.35);z-index:500}
@@ -162,7 +162,7 @@ data={
 };
 
 let cur='mob',sortBy='rank',curUser=null,favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
-const allGames=[...data.mob.map((g,i)=>({p:'mob',r:i+1,g})),...data.pc.map((g,i)=>({p:'pc',r:i+1,g}))];
+const allGames=[...data.mob.map((g,i)=>({p:'mob',idx:i,g})),...data.pc.map((g,i)=>({p:'pc',idx:i,g}))];
 
 window.onclick=e=>{if(!e.target.closest('#sortDD'))$('sortDD').classList.remove('open')};
 window.setSort=(v,el)=>{sortBy=v;$('sortLbl').innerText=el.innerText;document.querySelectorAll('.dd-opt').forEach(o=>o.classList.remove('active'));el.classList.add('active');$('sortDD').classList.remove('open');render()};
@@ -180,24 +180,24 @@ window.toggleFav=async(n,e)=>{
 window.render=()=>{
   $('favCnt').innerText=favs.length;
   const kw=$('q').value.trim().toLowerCase();
-  let list=cur==='fav'?allGames.filter(x=>favs.includes(x.g[0])):data[cur].map((g,i)=>({p:cur,r:i+1,g}));
+  let list=cur==='fav'?allGames.filter(x=>favs.includes(x.g[0])):data[cur].map((g,i)=>({p:cur,idx:i,g}));
   if(kw)list=list.filter(x=>x.g[0].toLowerCase().includes(kw)||x.g[1].toLowerCase().includes(kw));
   if(sortBy==='rate')list.sort((a,b)=>b.g[2]-a.g[2]);
   else if(sortBy==='s_asc')list.sort((a,b)=>toMB(a.g[3])-toMB(b.g[3]));
   else if(sortBy==='s_desc')list.sort((a,b)=>toMB(b.g[3])-toMB(a.g[3]));
 
-  $('gameList').innerHTML=list.length?list.map(({p,r,g})=>{
-    const lk=favs.includes(g[0]);
-    return `<div class="row" onclick="openG('${p}',${r-1})"><div class="rank ${r<=3?'r'+r:''}">${r}</div><div class="icon"><img src="${g[4]}" alt="${g[0]}"></div><div class="info"><div class="g-ttl">${cur==='fav'?`(${p.toUpperCase()}) `:''}${g[0]}</div><div class="g-sub">${g[1]}</div><div class="g-stat"><span class="star">${g[2]} <i class="fa-solid fa-star"></i></span><span><i class="fa-solid fa-hard-drive"></i> ${g[3]}</span></div></div><div class="r-acts"><button class="fav ${lk?'liked':''}" onclick="toggleFav('${g[0].replace(/'/g,"\\'")}',event)"><i class="fa-${lk?'solid':'regular'} fa-heart"></i></button><a href="${g[6]}" target="_blank" class="pill" onclick="event.stopPropagation()"><i class="fa-solid fa-download"></i> ติดตั้ง</a></div></div>`;
+  $('gameList').innerHTML=list.length?list.map(({p,idx,g},i)=>{
+    const r=i+1,lk=favs.includes(g[0]);
+    return `<div class="row" onclick="openG('${p}',${idx},${r})"><div class="rank ${r<=3?'r'+r:''}">${r}</div><div class="icon"><img src="${g[4]}" alt="${g[0]}"></div><div class="info"><div class="g-ttl">${cur==='fav'?`(${p.toUpperCase()}) `:''}${g[0]}</div><div class="g-sub">${g[1]}</div><div class="g-stat"><span class="star">${g[2]} <i class="fa-solid fa-star"></i></span><span><i class="fa-solid fa-hard-drive"></i> ${g[3]}</span></div></div><div class="r-acts"><button class="fav ${lk?'liked':''}" onclick="toggleFav('${g[0].replace(/'/g,"\\'")}',event)"><i class="fa-${lk?'solid':'regular'} fa-heart"></i></button><a href="${g[6]}" target="_blank" class="pill" onclick="event.stopPropagation()"><i class="fa-solid fa-download"></i> ติดตั้ง</a></div></div>`;
   }).join(''):`<div style="text-align:center;padding:40px;color:var(--mut)">ไม่พบเกมที่ค้นหา</div>`;
 };
 
-window.openG=(p,i)=>{
-  const g=data[p][i],lk=favs.includes(g[0]),mf=$('m-fav');
-  $('m-img').src=g[4];$('m-title').innerText=`#${i+1} ${g[0]}`;
+window.openG=(p,idx,r)=>{
+  const g=data[p][idx],lk=favs.includes(g[0]),mf=$('m-fav');
+  $('m-img').src=g[4];$('m-title').innerText=`#${r} ${g[0]}`;
   $('m-pub').innerHTML=`<i class="fa-solid fa-building"></i> ${g[1]}`;$('m-rat').innerHTML=`<i class="fa-solid fa-star"></i> ${g[2]}`;$('m-sz').innerHTML=`<i class="fa-solid fa-hard-drive"></i> ${g[3]}`;
   $('m-desc').innerText=g[5];$('m-dl').href=g[6];$('m-dl').innerHTML=`<i class="${g[7]}"></i> ${g[8]}`;
-  mf.style.color=mf.style.borderColor=lk?'#ff2e63':'';mf.onclick=()=>{toggleFav(g[0]);openG(p,i)};
+  mf.style.color=mf.style.borderColor=lk?'#ff2e63':'';mf.onclick=()=>{toggleFav(g[0]);openG(p,idx,r)};
   $('gModal').style.display='flex';
 };
 
