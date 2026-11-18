@@ -24,8 +24,9 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
 .hero img{max-width:300px;width:100%;border-radius:14px;box-shadow:0 0 22px var(--glow);border:1px solid rgba(0,255,102,.4)}
 .title{font:700 1.35rem 'Kanit';color:var(--ttl);margin-bottom:14px;display:flex;align-items:center;gap:10px;border-left:4px solid var(--neon);padding-left:12px}
 .f-bar{margin-bottom:14px}.s-box{position:relative;flex:1}.s-box i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut)}
-.s-in,.s-sel,.fc{padding:11px 16px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--ttl);font-size:.95rem;outline:0;transition:.25s}
-.s-in,.fc{width:100%}.s-in{padding-left:42px}.s-sel{cursor:pointer;min-width:185px}
+.sel-wrap{position:relative;min-width:190px}.sel-wrap i{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--mut);pointer-events:none;font-size:.82rem}
+.s-in,.s-sel,.fc{padding:11px 16px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--ttl);font-size:.95rem;outline:0;transition:.25s;width:100%}
+.s-in{padding-left:42px}.s-sel{appearance:none;-webkit-appearance:none;padding:11px 36px 11px 14px;text-align:center;text-align-last:center;cursor:pointer}
 .s-in:focus,.s-sel:focus,.fc:focus{border-color:var(--neon);box-shadow:0 0 12px var(--glow)}
 .tabs{margin-bottom:18px;background:var(--card);padding:6px;border-radius:12px;border:1px solid var(--bd)}
 .tab-btn{flex:1;padding:10px;border:0;background:0;color:var(--mut);font:600 .95rem 'Kanit';border-radius:8px;cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:6px}
@@ -51,7 +52,7 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
 .b-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:var(--nav);border-top:1px solid var(--bd);z-index:1000;padding:8px 0;justify-content:space-around}
 .b-item{color:var(--mut);text-decoration:none;display:flex;flex-direction:column;align-items:center;font-size:.75rem;gap:4px}.b-item.active{color:var(--neon)}
 @media(max-width:768px){.logo-txt{font-size:1.05rem}.hide-m{display:none}.hero img{max-width:240px}.row{padding:10px;gap:10px}.icon{width:52px;height:52px}.pill{padding:6px 10px;font-size:.8rem}.b-nav{display:flex}}
-@media(max-width:600px){.f-bar{flex-direction:column}}
+@media(max-width:600px){.f-bar{flex-direction:column}.sel-wrap{width:100%}}
 </style>
 </head>
 <body>
@@ -70,10 +71,15 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
   <div class="title"><i class="fa-solid fa-trophy" style="color:var(--neon)"></i> 10 อันดับเกมยอดนิยม</div>
   <div class="f-bar">
     <div class="s-box"><i class="fa-solid fa-magnifying-glass"></i><input id="q" class="s-in" placeholder="ค้นหาชื่อเกม หรือแนวเกม (เช่น RPG, ยิง, Roblox)..." oninput="render()"></div>
-    <select id="sortBy" class="s-sel" onchange="render()">
-      <option value="rank">เรียงตาม: อันดับยอดนิยม</option><option value="rate">คะแนนรีวิวสูงสุด ★</option>
-      <option value="s_asc">ขนาดไฟล์: เล็ก → ใหญ่</option><option value="s_desc">ขนาดไฟล์: ใหญ่ → เล็ก</option>
-    </select>
+    <div class="sel-wrap">
+      <select id="sortBy" class="s-sel" onchange="render()">
+        <option value="rank">อันดับยอดนิยม</option>
+        <option value="rate">คะแนนรีวิวสูงสุด</option>
+        <option value="s_desc">ขนาดไฟล์ : ใหญ่ > เล็ก</option>
+        <option value="s_asc">ขนาดไฟล์ : เล็ก > ใหญ่</option>
+      </select>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
   </div>
   <div class="tabs">
     <button class="tab-btn active" id="b-mob" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen-button"></i> Mobile</button>
