@@ -7,52 +7,59 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#090a0f;--card:#12151e;--nav:#0d1017;--neon:#00ff66;--glow:rgba(0,255,102,.4);--txt:#e0e6ed;--mut:#8a96a3;--bd:rgba(0,255,102,.2)}
+:root{--bg:#090a0f;--card:#12151e;--hover:#161b26;--nav:rgba(13,16,23,.95);--neon:#00ff66;--btn-txt:#000;--glow:rgba(0,255,102,.35);--txt:#e0e6ed;--title:#fff;--mut:#8a96a3;--bd:rgba(0,255,102,.25);--in:#000}
+body.light{--bg:#f2f5f9;--card:#ffffff;--hover:#e9eff5;--nav:rgba(255,255,255,.95);--neon:#00a844;--btn-txt:#fff;--glow:rgba(0,168,68,.2);--txt:#2d3748;--title:#111827;--mut:#64748b;--bd:rgba(0,168,68,.3);--in:#f8fafc}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Kanit',sans-serif;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--txt);padding-bottom:70px;overflow-x:hidden}
-.toast{position:fixed;top:20px;right:20px;background:var(--card);border:2px solid var(--neon);color:#fff;padding:12px 24px;border-radius:8px;box-shadow:0 0 15px var(--glow);z-index:9999;display:none;align-items:center;gap:10px}
-header{background:rgba(13,16,23,.95);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px)}
+body{background:var(--bg);color:var(--txt);padding-bottom:70px;overflow-x:hidden;transition:background .3s,color .3s}
+.toast{position:fixed;top:20px;right:20px;background:var(--card);border:2px solid var(--neon);color:var(--title);padding:12px 22px;border-radius:8px;box-shadow:0 4px 15px var(--glow);z-index:9999;display:none;align-items:center;gap:10px}
+header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px)}
 .nav,.container{max-width:1000px;margin:0 auto;padding:10px 20px}
 .nav{display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo img{height:44px;border-radius:8px;border:1px solid var(--neon);box-shadow:0 0 10px var(--glow)}
-.logo-txt{font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:900;background:linear-gradient(135deg,#fff,#a1a8b8,#636e7b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo-txt span{color:var(--neon);-webkit-text-fill-color:var(--neon)}
-.actions{display:flex;align-items:center;gap:10px}
-.btn,.btn-solid{padding:8px 15px;border-radius:6px;cursor:pointer;font-weight:600;transition:.3s;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-size:.9rem;border:1px solid var(--neon)}
-.btn{background:transparent;color:var(--neon)}.btn:hover{background:var(--neon);color:#000;box-shadow:0 0 15px var(--glow)}
-.btn-solid{background:var(--neon);color:#000}.btn-solid:hover{box-shadow:0 0 20px var(--glow);transform:translateY(-2px)}
-.hero{display:flex;justify-content:center;margin:10px 0 28px;padding:20px;background:radial-gradient(circle,rgba(0,255,102,.12),rgba(18,21,30,.8) 70%);border-radius:16px;border:1px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.6)}
-.hero img{max-width:320px;width:100%;border-radius:14px;box-shadow:0 0 25px var(--glow);border:1px solid rgba(0,255,102,.4)}
-.title{font-size:1.4rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;border-left:4px solid var(--neon);padding-left:12px}
-.tabs{display:flex;gap:12px;margin-bottom:20px;background:var(--card);padding:8px;border-radius:12px;border:1px solid var(--bd)}
-.tab-btn{flex:1;padding:11px;border:none;background:transparent;color:var(--mut);font-size:1rem;font-weight:600;border-radius:8px;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
-.tab-btn.active{background:var(--neon);color:#000;box-shadow:0 0 15px var(--glow)}
-.list{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
-.row{background:var(--card);border-radius:12px;padding:13px 16px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:15px;cursor:pointer;transition:.25s}
-.row:hover{transform:translateX(6px);border-color:var(--neon);background:#161b26;box-shadow:0 4px 15px var(--glow)}
-.rank{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;width:30px;text-align:center;color:var(--mut);flex-shrink:0}
-.r1{color:#ffd700;font-size:1.4rem}.r2{color:#e0e0e0;font-size:1.35rem}.r3{color:#cd7f32;font-size:1.3rem}
-.icon-box{width:64px;height:64px;border-radius:15px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:42px;border-radius:8px;border:1px solid var(--neon);box-shadow:0 0 10px var(--glow);background:#000}
+.logo-txt{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;color:var(--title)}
+.logo-txt span{color:var(--neon)}
+.actions{display:flex;align-items:center;gap:8px}
+.btn,.btn-solid{padding:8px 13px;border-radius:6px;cursor:pointer;font-weight:600;transition:.25s;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-size:.88rem;border:1px solid var(--neon)}
+.btn{background:transparent;color:var(--neon)}.btn:hover{background:var(--neon);color:var(--btn-txt);box-shadow:0 0 12px var(--glow)}
+.btn-solid{background:var(--neon);color:var(--btn-txt)}.btn-solid:hover{box-shadow:0 0 16px var(--glow);transform:translateY(-1px)}
+.hero{display:flex;justify-content:center;margin:10px 0 24px;padding:18px;background:radial-gradient(circle,rgba(0,255,102,.15),#0d1017 75%);border-radius:16px;border:1px solid var(--bd);box-shadow:0 8px 25px rgba(0,0,0,.35)}
+.hero img{max-width:300px;width:100%;border-radius:14px;box-shadow:0 0 22px var(--glow);border:1px solid rgba(0,255,102,.4)}
+.title{font-size:1.35rem;font-weight:700;color:var(--title);margin-bottom:14px;display:flex;align-items:center;gap:10px;border-left:4px solid var(--neon);padding-left:12px}
+.search-box{position:relative;margin-bottom:14px}
+.search-box i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut)}
+.search-in{width:100%;padding:11px 16px 11px 42px;background:var(--card);border:1px solid var(--bd);border-radius:10px;color:var(--title);font-size:.95rem;outline:none;transition:.25s}
+.search-in:focus{border-color:var(--neon);box-shadow:0 0 12px var(--glow)}
+.tabs{display:flex;gap:8px;margin-bottom:18px;background:var(--card);padding:6px;border-radius:12px;border:1px solid var(--bd)}
+.tab-btn{flex:1;padding:10px;border:none;background:transparent;color:var(--mut);font-size:.95rem;font-weight:600;border-radius:8px;cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn.active{background:var(--neon);color:var(--btn-txt);box-shadow:0 0 12px var(--glow)}
+.list{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
+.row{background:var(--card);border-radius:12px;padding:12px 15px;border:1px solid var(--bd);display:flex;align-items:center;gap:14px;cursor:pointer;transition:.2s}
+.row:hover{transform:translateX(5px);border-color:var(--neon);background:var(--hover);box-shadow:0 4px 14px var(--glow)}
+.rank{font-family:'Orbitron',sans-serif;font-size:1.15rem;font-weight:900;width:28px;text-align:center;color:var(--mut);flex-shrink:0}
+.r1{color:#eab308;font-size:1.35rem}.r2{color:#94a3b8;font-size:1.3rem}.r3{color:#d97706;font-size:1.25rem}
+.icon-box{width:62px;height:62px;border-radius:14px;overflow:hidden;background:#000;border:1px solid rgba(128,128,128,.2);flex-shrink:0}
 .icon-box img{width:100%;height:100%;object-fit:cover}
 .info{flex:1;min-width:0}
-.g-title{font-size:1.08rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.g-sub{font-size:.86rem;color:var(--mut);margin:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.g-stat{display:flex;gap:14px;font-size:.84rem}.star{color:#fc0;font-weight:600}
-.pill{background:rgba(0,255,102,.12);color:var(--neon);border:1px solid var(--neon);padding:7px 16px;border-radius:20px;font-size:.86rem;font-weight:600;text-decoration:none;transition:.25s;white-space:nowrap}
-.row:hover .pill,.pill:hover{background:var(--neon);color:#000}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(8px);padding:20px}
-.m-box{background:var(--card);border:1px solid var(--neon);border-radius:12px;padding:25px;width:100%;max-width:480px;position:relative;box-shadow:0 0 30px var(--glow);max-height:90vh;overflow-y:auto;text-align:center}
-.close{position:absolute;top:15px;right:15px;color:var(--mut);cursor:pointer;font-size:1.5rem}
-.m-logo{width:105px;height:105px;border-radius:20px;object-fit:cover;border:2px solid var(--neon);margin:0 auto 14px;display:block}
-.a-tabs{display:flex;gap:10px;margin-bottom:20px;border-bottom:1px solid #333}
-.a-tab{padding:10px 18px;cursor:pointer;color:var(--mut);font-weight:600}
-.a-tab.active{color:var(--neon);border-bottom:2px solid var(--neon)}
-.fg{margin-bottom:14px;text-align:left}.fg label{display:block;margin-bottom:5px;font-size:.9rem}
-.fc{width:100%;padding:11px;background:#000;border:1px solid #333;border-radius:6px;color:#fff;font-size:1rem}.fc:focus{outline:none;border-color:var(--neon)}
+.g-title{font-size:1.05rem;font-weight:600;color:var(--title);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-sub{font-size:.84rem;color:var(--mut);margin:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-stat{display:flex;gap:12px;font-size:.82rem}.star{color:#eab308;font-weight:600}
+.row-acts{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.fav-btn{background:transparent;border:1px solid var(--bd);color:var(--mut);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.2s}
+.fav-btn.liked{color:#ff2e63;border-color:#ff2e63;background:rgba(255,46,99,.1)}
+.pill{background:rgba(0,255,102,.12);color:var(--neon);border:1px solid var(--neon);padding:7px 14px;border-radius:20px;font-size:.84rem;font-weight:600;text-decoration:none;transition:.2s;white-space:nowrap}
+.row:hover .pill,.pill:hover{background:var(--neon);color:var(--btn-txt)}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(6px);padding:20px}
+.m-box{background:var(--card);border:1px solid var(--neon);border-radius:12px;padding:24px;width:100%;max-width:460px;position:relative;box-shadow:0 0 25px var(--glow);max-height:90vh;overflow-y:auto;text-align:center}
+.close{position:absolute;top:14px;right:16px;color:var(--mut);cursor:pointer;font-size:1.5rem}
+.m-logo{width:100px;height:100px;border-radius:20px;object-fit:cover;border:2px solid var(--neon);margin:0 auto 12px;display:block}
+.a-tabs{display:flex;gap:10px;margin-bottom:18px;border-bottom:1px solid var(--bd)}
+.a-tab{padding:8px 16px;cursor:pointer;color:var(--mut);font-weight:600}.a-tab.active{color:var(--neon);border-bottom:2px solid var(--neon)}
+.fg{margin-bottom:14px;text-align:left}.fg label{display:block;margin-bottom:5px;font-size:.88rem}
+.fc{width:100%;padding:10px;background:var(--in);border:1px solid var(--bd);border-radius:6px;color:var(--title);font-size:.95rem}.fc:focus{outline:none;border-color:var(--neon)}
 .b-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:var(--nav);border-top:1px solid var(--bd);z-index:1000;padding:8px 0;justify-content:space-around}
 .b-item{color:var(--mut);text-decoration:none;display:flex;flex-direction:column;align-items:center;font-size:.75rem;gap:4px}.b-item.active{color:var(--neon)}
-@media(max-width:768px){.logo-txt{font-size:1.1rem}.hero img{max-width:250px}.row{padding:11px;gap:10px}.icon-box{width:54px;height:54px}.pill{padding:6px 11px;font-size:.8rem}.b-nav{display:flex}}
+@media(max-width:768px){.logo-txt{font-size:1.05rem}.hide-m{display:none}.hero img{max-width:240px}.row{padding:10px;gap:10px}.icon-box{width:52px;height:52px}.pill{padding:6px 10px;font-size:.8rem}.b-nav{display:flex}}
 </style>
 </head>
 <body>
@@ -62,30 +69,39 @@ header{background:rgba(13,16,23,.95);border-bottom:1px solid var(--bd);position:
 <header>
   <div class="nav">
     <a href="#" class="logo">
-      <img src="Neon MT GameZone Esports Emblem.png" alt="Logo">
+      <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
       <div class="logo-txt">MT <span>GAMEZONE</span></div>
     </a>
     <div class="actions">
-      <button class="btn" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> แชร์เว็บ</button>
-      <div id="auth-box"><button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button></div>
+      <button class="btn" id="themeBtn" onclick="toggleTheme()" title="สลับโหมดมืด/สว่าง"><i class="fa-solid fa-sun"></i></button>
+      <button class="btn" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> <span class="hide-m">แชร์เว็บ</span></button>
+      <div id="auth-box"><button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> <span class="hide-m">เข้าสู่ระบบ</span></button></div>
     </div>
   </div>
 </header>
 
 <div class="container">
-  <div class="hero"><img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone"></div>
+  <div class="hero"><img src="logo.png" alt="MT GameZone" onerror="this.parentElement.style.display='none'"></div>
   <div class="title"><i class="fa-solid fa-trophy" style="color:var(--neon)"></i> 10 อันดับเกมยอดนิยม</div>
-  <div class="tabs">
-    <button class="tab-btn active" id="b-mob" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Games</button>
-    <button class="tab-btn" id="b-pc" onclick="setPlat('pc')"><i class="fa-solid fa-desktop"></i> PC Games</button>
+
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="q" class="search-in" placeholder="ค้นหาชื่อเกม หรือแนวเกม (เช่น RPG, ยิง, Roblox)..." oninput="render()">
   </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="b-mob" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen-button"></i> Mobile</button>
+    <button class="tab-btn" id="b-pc" onclick="setPlat('pc')"><i class="fa-solid fa-desktop"></i> PC</button>
+    <button class="tab-btn" id="b-fav" onclick="setPlat('fav')"><i class="fa-solid fa-heart"></i> เกมโปรด (<span id="favCnt">0</span>)</button>
+  </div>
+
   <div class="list" id="gameList"></div>
 </div>
 
 <div class="b-nav">
-  <a href="#" class="b-item active"><i class="fa-solid fa-house"></i>หน้าแรก</a>
   <a href="#gameList" class="b-item" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
   <a href="#gameList" class="b-item" onclick="setPlat('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
+  <a href="#gameList" class="b-item" onclick="setPlat('fav')"><i class="fa-solid fa-heart"></i>เกมโปรด</a>
   <a href="#" class="b-item" onclick="openAuth('login')"><i class="fa-solid fa-user"></i>บัญชี</a>
 </div>
 
@@ -94,11 +110,14 @@ header{background:rgba(13,16,23,.95);border-bottom:1px solid var(--bd);position:
     <i class="fa-solid fa-xmark close" onclick="closeM('gModal')"></i>
     <img id="m-img" class="m-logo">
     <h2 id="m-title" style="color:var(--neon);margin-bottom:6px"></h2>
-    <div style="display:flex;justify-content:center;gap:15px;font-size:.9rem;color:var(--mut);margin-bottom:14px">
-      <span id="m-pub"></span><span id="m-rat" style="color:#fc0"></span><span id="m-sz"></span>
+    <div style="display:flex;justify-content:center;gap:14px;font-size:.88rem;color:var(--mut);margin-bottom:14px">
+      <span id="m-pub"></span><span id="m-rat" style="color:#eab308"></span><span id="m-sz"></span>
     </div>
-    <p id="m-desc" style="line-height:1.6;color:#ccc;margin-bottom:20px;text-align:left"></p>
-    <a id="m-dl" target="_blank" class="btn-solid" style="width:100%;font-size:1.05rem"></a>
+    <p id="m-desc" style="line-height:1.6;margin-bottom:18px;text-align:left"></p>
+    <div style="display:flex;gap:10px">
+      <button id="m-fav" class="btn" style="padding:10px 16px"><i class="fa-solid fa-heart"></i></button>
+      <a id="m-dl" target="_blank" class="btn-solid" style="flex:1;font-size:1rem"></a>
+    </div>
   </div>
 </div>
 
@@ -151,33 +170,69 @@ data={
     ['Red Dead Redemption 2','Rockstar Games • Open World',4.9,'120 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961','เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง','https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/','fa-brands fa-steam','ดาวน์โหลดบน Steam']
   ]
 };
-let cur='mob';
+let cur='mob',favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
+const allGames=[...data.mob.map((g,i)=>({p:'mob',r:i+1,g})),...data.pc.map((g,i)=>({p:'pc',r:i+1,g}))];
+
+function toggleTheme(){
+  const isL=document.body.classList.toggle('light');
+  $('themeBtn').innerHTML=isL?'<i class="fa-solid fa-moon"></i>':'<i class="fa-solid fa-sun"></i>';
+  localStorage.setItem('mt_theme',isL?'light':'dark');
+}
+if(localStorage.getItem('mt_theme')==='light')toggleTheme();
+
 function setPlat(t){
   cur=t;
-  $('b-mob').classList.toggle('active',t==='mob');
-  $('b-pc').classList.toggle('active',t==='pc');
-  $('gameList').innerHTML=data[t].map((g,i)=>`
-    <div class="row" onclick="openG(${i})">
-      <div class="rank ${i<3?'r'+(i+1):''}">${i+1}</div>
+  ['mob','pc','fav'].forEach(k=>$('b-'+k).classList.toggle('active',t===k));
+  render();
+}
+
+function toggleFav(name,e){
+  if(e)e.stopPropagation();
+  const idx=favs.indexOf(name);
+  if(idx>-1){favs.splice(idx,1);toast('ลบออกจากเกมโปรดแล้ว')}
+  else{favs.push(name);toast('บันทึกในเกมโปรดแล้ว ❤️')}
+  localStorage.setItem('mt_fav',JSON.stringify(favs));
+  render();
+}
+
+function render(){
+  $('favCnt').innerText=favs.length;
+  const kw=$('q').value.trim().toLowerCase();
+  let list=cur==='fav'?allGames.filter(x=>favs.includes(x.g[0])):data[cur].map((g,i)=>({p:cur,r:i+1,g}));
+  if(kw)list=list.filter(x=>x.g[0].toLowerCase().includes(kw)||x.g[1].toLowerCase().includes(kw));
+
+  $('gameList').innerHTML=list.length?list.map(({p,r,g})=>{
+    const liked=favs.includes(g[0]),badge=cur==='fav'?`(${p.toUpperCase()}) `:'';
+    return `<div class="row" onclick="openG('${p}',${r-1})">
+      <div class="rank ${r<=3?'r'+r:''}">${r}</div>
       <div class="icon-box"><img src="${g[4]}" alt="${g[0]}"></div>
       <div class="info">
-        <div class="g-title">${g[0]}</div>
+        <div class="g-title">${badge}${g[0]}</div>
         <div class="g-sub">${g[1]}</div>
         <div class="g-stat"><span class="star">${g[2]} <i class="fa-solid fa-star"></i></span><span><i class="fa-solid fa-hard-drive"></i> ${g[3]}</span></div>
       </div>
-      <a href="${g[6]}" target="_blank" class="pill" onclick="event.stopPropagation()"><i class="fa-solid fa-download"></i> ติดตั้ง</a>
-    </div>`).join('');
+      <div class="row-acts">
+        <button class="fav-btn ${liked?'liked':''}" onclick="toggleFav('${g[0].replace(/'/g,"\\'")}',event)" title="ถูกใจ"><i class="fa-${liked?'solid':'regular'} fa-heart"></i></button>
+        <a href="${g[6]}" target="_blank" class="pill" onclick="event.stopPropagation()"><i class="fa-solid fa-download"></i> ติดตั้ง</a>
+      </div>
+    </div>`;
+  }).join(''):`<div style="text-align:center;padding:40px;color:var(--mut)">ไม่พบเกมที่ค้นหา</div>`;
 }
-function openG(i){
-  const g=data[cur][i];
+
+function openG(p,i){
+  const g=data[p][i],liked=favs.includes(g[0]);
   $('m-img').src=g[4];$('m-title').innerText=`#${i+1} ${g[0]}`;
   $('m-pub').innerHTML=`<i class="fa-solid fa-building"></i> ${g[1]}`;
   $('m-rat').innerHTML=`<i class="fa-solid fa-star"></i> ${g[2]}`;
   $('m-sz').innerHTML=`<i class="fa-solid fa-hard-drive"></i> ${g[3]}`;
   $('m-desc').innerText=g[5];$('m-dl').href=g[6];
   $('m-dl').innerHTML=`<i class="${g[7]}"></i> ${g[8]}`;
+  const mf=$('m-fav');mf.className='btn'+(liked?' liked':'');
+  mf.style.color=liked?'#ff2e63':'';mf.style.borderColor=liked?'#ff2e63':'';
+  mf.onclick=()=>{toggleFav(g[0]);openG(p,i)};
   $('gModal').style.display='flex';
 }
+
 const closeM=id=>$(id).style.display='none',
 openAuth=t=>{$('aModal').style.display='flex';swAuth(t)},
 swAuth=t=>{
@@ -187,12 +242,12 @@ swAuth=t=>{
 },
 doAuth=(e,isIn)=>{
   e.preventDefault();toast(isIn?'เข้าสู่ระบบสำเร็จ!':'สมัครสมาชิกสำเร็จ!');closeM('aModal');
-  $('auth-box').innerHTML=`<span style="color:var(--neon);font-weight:700;margin-right:8px"><i class="fa-solid fa-user-check"></i> Gamer</span><button class="btn" onclick="out()"><i class="fa-solid fa-right-from-bracket"></i></button>`;
+  $('auth-box').innerHTML=`<span style="color:var(--neon);font-weight:700;margin-right:6px"><i class="fa-solid fa-user-check"></i> Gamer</span><button class="btn" onclick="out()"><i class="fa-solid fa-right-from-bracket"></i></button>`;
 },
-out=()=>{toast('ออกจากระบบแล้ว');$('auth-box').innerHTML=`<button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>`},
-copyLink=()=>navigator.clipboard.writeText('https://mtgamezone.netlify.app').then(()=>toast('คัดลอกลิงก์สำเร็จ!')),
-toast=m=>{$('t-msg').innerText=m;$('toast').style.display='flex';setTimeout(()=>$('toast').style.display='none',2800)};
-setPlat('mob');
+out=()=>{toast('ออกจากระบบแล้ว');$('auth-box').innerHTML=`<button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> <span class="hide-m">เข้าสู่ระบบ</span></button>`},
+copyLink=()=>navigator.clipboard.writeText(location.href).then(()=>toast('คัดลอกลิงก์สำเร็จ!')),
+toast=m=>{$('t-msg').innerText=m;$('toast').style.display='flex';setTimeout(()=>$('toast').style.display='none',2600)};
+render();
 </script>
 </body>
 </html>
