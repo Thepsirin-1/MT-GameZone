@@ -1,527 +1,198 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MT GameZone - ศูนย์รวมข้อมูลและ 10 อันดับเกมยอดนิยม PC & Mobile</title>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #090a0f;
-            --bg-card: #12151e;
-            --bg-nav: #0d1017;
-            --neon-green: #00ff66;
-            --neon-green-glow: rgba(0, 255, 102, 0.4);
-            --text-silver: #e0e6ed;
-            --text-muted: #8a96a3;
-            --silver-metal: linear-gradient(135deg, #ffffff 0%, #a1a8b8 50%, #636e7b 100%);
-            --border-color: rgba(0, 255, 102, 0.2);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Kanit', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-dark); color: var(--text-silver); padding-bottom: 70px; overflow-x: hidden; }
-
-        /* Toast Alert */
-        .toast {
-            position: fixed; top: 20px; right: 20px; background: var(--bg-card);
-            border: 2px solid var(--neon-green); color: #fff; padding: 12px 24px;
-            border-radius: 8px; box-shadow: 0 0 15px var(--neon-green-glow);
-            z-index: 9999; display: none; align-items: center; gap: 10px;
-        }
-
-        /* Header Navigation */
-        header {
-            background-color: rgba(13, 16, 23, 0.95); border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
-        }
-        .nav-container {
-            max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between;
-            align-items: center; padding: 10px 20px;
-        }
-        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .nav-logo-img {
-            height: 46px; width: auto; border-radius: 8px;
-            border: 1px solid var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green-glow);
-            object-fit: cover;
-        }
-        .logo-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900;
-            background: var(--silver-metal); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .logo-text span { color: var(--neon-green); -webkit-text-fill-color: var(--neon-green); }
-
-        .user-actions { display: flex; align-items: center; gap: 10px; }
-
-        .btn-neon {
-            background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
-            padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 0.9rem;
-        }
-        .btn-neon:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green-glow); }
-
-        .btn-neon-solid {
-            background: var(--neon-green); color: #000; border: 1px solid var(--neon-green);
-            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.9rem;
-        }
-        .btn-neon-solid:hover { box-shadow: 0 0 20px var(--neon-green-glow); transform: translateY(-2px); }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-
-        /* Hero Logo Banner */
-        .hero-banner {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin-bottom: 30px; padding: 20px; background: radial-gradient(circle at center, rgba(0,255,102,0.12) 0%, rgba(18,21,30,0.8) 70%);
-            border-radius: 16px; border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        }
-        .hero-logo-img {
-            max-width: 340px; width: 100%; height: auto; border-radius: 14px;
-            box-shadow: 0 0 25px var(--neon-green-glow);
-            border: 1px solid rgba(0, 255, 102, 0.4);
-        }
-
-        .section-title {
-            font-size: 1.4rem; margin-bottom: 18px; display: flex; align-items: center;
-            gap: 10px; border-left: 4px solid var(--neon-green); padding-left: 12px;
-        }
-
-        /* Platform Switcher Tabs */
-        .platform-tabs {
-            display: flex; gap: 12px; margin-bottom: 22px; background: var(--bg-card);
-            padding: 8px; border-radius: 12px; border: 1px solid var(--border-color);
-        }
-        .platform-btn {
-            flex: 1; padding: 12px; border: none; background: transparent; color: var(--text-muted);
-            font-size: 1.05rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .platform-btn.active {
-            background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green-glow);
-        }
-
-        /* Play Store Style List View */
-        .game-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-        .game-row {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 14px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .game-row:hover {
-            transform: translateX(6px);
-            border-color: var(--neon-green);
-            background: #161b26;
-            box-shadow: 0 4px 15px var(--neon-green-glow);
-        }
-        .rank-num {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 900;
-            width: 32px;
-            text-align: center;
-            color: var(--text-muted);
-            flex-shrink: 0;
-        }
-        .rank-1 { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); font-size: 1.4rem; }
-        .rank-2 { color: #e0e0e0; text-shadow: 0 0 10px rgba(224, 224, 224, 0.4); font-size: 1.35rem; }
-        .rank-3 { color: #cd7f32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.4); font-size: 1.3rem; }
-
-        .game-icon-box {
-            width: 68px;
-            height: 68px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-        .game-icon-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .game-details {
-            flex: 1;
-            min-width: 0; /* ป้องกันข้อความดันทะลุกรอบ */
-        }
-        .game-row-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .game-row-sub {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .game-row-stats {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 0.85rem;
-            color: var(--text-silver);
-        }
-        .rating-star { color: #ffcc00; font-weight: 600; }
-
-        .game-row-action {
-            flex-shrink: 0;
-        }
-        .btn-install-pill {
-            background: rgba(0, 255, 102, 0.12);
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .game-row:hover .btn-install-pill, .btn-install-pill:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 12px var(--neon-green-glow);
-        }
-
-        /* Modal Base */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px); padding: 20px;
-        }
-        .modal-content {
-            background: var(--bg-card); border: 1px solid var(--neon-green); border-radius: 12px;
-            padding: 25px; width: 100%; max-width: 500px; position: relative;
-            box-shadow: 0 0 30px var(--neon-green-glow); max-height: 90vh; overflow-y: auto; text-align: center;
-        }
-        .close-btn { position: absolute; top: 15px; right: 15px; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; }
-
-        .modal-logo {
-            width: 110px; height: 110px; border-radius: 22px; object-fit: cover;
-            border: 2px solid var(--neon-green); margin: 0 auto 15px auto; display: block;
-            box-shadow: 0 0 15px var(--neon-green-glow);
-        }
-
-        /* Auth Form Styles */
-        .auth-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #333; text-align: left; }
-        .auth-tab { padding: 10px 20px; cursor: pointer; color: var(--text-muted); font-weight: 600; font-size: 1.1rem; }
-        .auth-tab.active { color: var(--neon-green); border-bottom: 2px solid var(--neon-green); }
-
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--text-silver); }
-        .form-control {
-            width: 100%; padding: 12px; background: #000; border: 1px solid #333;
-            border-radius: 6px; color: #fff; font-size: 1rem;
-        }
-        .form-control:focus { outline: none; border-color: var(--neon-green); }
-
-        /* Mobile Bottom Nav */
-        .mobile-bottom-nav {
-            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
-            background: var(--bg-nav); border-top: 1px solid var(--border-color);
-            z-index: 1000; padding: 8px 0; justify-content: space-around;
-        }
-        .mobile-nav-item {
-            color: var(--text-muted); text-decoration: none; display: flex;
-            flex-direction: column; align-items: center; font-size: 0.75rem; gap: 4px;
-        }
-        .mobile-nav-item.active { color: var(--neon-green); }
-
-        @media (max-width: 768px) {
-            .logo-text { font-size: 1.15rem; }
-            .nav-logo-img { height: 38px; }
-            .hero-logo-img { max-width: 260px; }
-            .platform-btn { font-size: 0.9rem; padding: 10px 8px; }
-            .game-row { padding: 12px; gap: 12px; }
-            .rank-num { width: 24px; font-size: 1.05rem; }
-            .game-icon-box { width: 58px; height: 58px; border-radius: 14px; }
-            .game-row-title { font-size: 1rem; }
-            .btn-install-pill { padding: 6px 12px; font-size: 0.8rem; }
-            .mobile-bottom-nav { display: flex; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MT GameZone - 10 อันดับเกมยอดนิยม PC & Mobile</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090a0f;--card:#12151e;--nav:#0d1017;--neon:#00ff66;--glow:rgba(0,255,102,.4);--txt:#e0e6ed;--mut:#8a96a3;--bd:rgba(0,255,102,.2)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Kanit',sans-serif;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);padding-bottom:70px;overflow-x:hidden}
+.toast{position:fixed;top:20px;right:20px;background:var(--card);border:2px solid var(--neon);color:#fff;padding:12px 24px;border-radius:8px;box-shadow:0 0 15px var(--glow);z-index:9999;display:none;align-items:center;gap:10px}
+header{background:rgba(13,16,23,.95);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px)}
+.nav,.container{max-width:1000px;margin:0 auto;padding:10px 20px}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo img{height:44px;border-radius:8px;border:1px solid var(--neon);box-shadow:0 0 10px var(--glow)}
+.logo-txt{font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:900;background:linear-gradient(135deg,#fff,#a1a8b8,#636e7b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-txt span{color:var(--neon);-webkit-text-fill-color:var(--neon)}
+.actions{display:flex;align-items:center;gap:10px}
+.btn,.btn-solid{padding:8px 15px;border-radius:6px;cursor:pointer;font-weight:600;transition:.3s;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-size:.9rem;border:1px solid var(--neon)}
+.btn{background:transparent;color:var(--neon)}.btn:hover{background:var(--neon);color:#000;box-shadow:0 0 15px var(--glow)}
+.btn-solid{background:var(--neon);color:#000}.btn-solid:hover{box-shadow:0 0 20px var(--glow);transform:translateY(-2px)}
+.hero{display:flex;justify-content:center;margin:10px 0 28px;padding:20px;background:radial-gradient(circle,rgba(0,255,102,.12),rgba(18,21,30,.8) 70%);border-radius:16px;border:1px solid var(--bd);box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.hero img{max-width:320px;width:100%;border-radius:14px;box-shadow:0 0 25px var(--glow);border:1px solid rgba(0,255,102,.4)}
+.title{font-size:1.4rem;margin-bottom:16px;display:flex;align-items:center;gap:10px;border-left:4px solid var(--neon);padding-left:12px}
+.tabs{display:flex;gap:12px;margin-bottom:20px;background:var(--card);padding:8px;border-radius:12px;border:1px solid var(--bd)}
+.tab-btn{flex:1;padding:11px;border:none;background:transparent;color:var(--mut);font-size:1rem;font-weight:600;border-radius:8px;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.tab-btn.active{background:var(--neon);color:#000;box-shadow:0 0 15px var(--glow)}
+.list{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.row{background:var(--card);border-radius:12px;padding:13px 16px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:15px;cursor:pointer;transition:.25s}
+.row:hover{transform:translateX(6px);border-color:var(--neon);background:#161b26;box-shadow:0 4px 15px var(--glow)}
+.rank{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;width:30px;text-align:center;color:var(--mut);flex-shrink:0}
+.r1{color:#ffd700;font-size:1.4rem}.r2{color:#e0e0e0;font-size:1.35rem}.r3{color:#cd7f32;font-size:1.3rem}
+.icon-box{width:64px;height:64px;border-radius:15px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.icon-box img{width:100%;height:100%;object-fit:cover}
+.info{flex:1;min-width:0}
+.g-title{font-size:1.08rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-sub{font-size:.86rem;color:var(--mut);margin:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-stat{display:flex;gap:14px;font-size:.84rem}.star{color:#fc0;font-weight:600}
+.pill{background:rgba(0,255,102,.12);color:var(--neon);border:1px solid var(--neon);padding:7px 16px;border-radius:20px;font-size:.86rem;font-weight:600;text-decoration:none;transition:.25s;white-space:nowrap}
+.row:hover .pill,.pill:hover{background:var(--neon);color:#000}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(8px);padding:20px}
+.m-box{background:var(--card);border:1px solid var(--neon);border-radius:12px;padding:25px;width:100%;max-width:480px;position:relative;box-shadow:0 0 30px var(--glow);max-height:90vh;overflow-y:auto;text-align:center}
+.close{position:absolute;top:15px;right:15px;color:var(--mut);cursor:pointer;font-size:1.5rem}
+.m-logo{width:105px;height:105px;border-radius:20px;object-fit:cover;border:2px solid var(--neon);margin:0 auto 14px;display:block}
+.a-tabs{display:flex;gap:10px;margin-bottom:20px;border-bottom:1px solid #333}
+.a-tab{padding:10px 18px;cursor:pointer;color:var(--mut);font-weight:600}
+.a-tab.active{color:var(--neon);border-bottom:2px solid var(--neon)}
+.fg{margin-bottom:14px;text-align:left}.fg label{display:block;margin-bottom:5px;font-size:.9rem}
+.fc{width:100%;padding:11px;background:#000;border:1px solid #333;border-radius:6px;color:#fff;font-size:1rem}.fc:focus{outline:none;border-color:var(--neon)}
+.b-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:var(--nav);border-top:1px solid var(--bd);z-index:1000;padding:8px 0;justify-content:space-around}
+.b-item{color:var(--mut);text-decoration:none;display:flex;flex-direction:column;align-items:center;font-size:.75rem;gap:4px}.b-item.active{color:var(--neon)}
+@media(max-width:768px){.logo-txt{font-size:1.1rem}.hero img{max-width:250px}.row{padding:11px;gap:10px}.icon-box{width:54px;height:54px}.pill{padding:6px 11px;font-size:.8rem}.b-nav{display:flex}}
+</style>
 </head>
 <body>
 
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-circle-check" style="color: var(--neon-green)"></i>
-        <span id="toast-msg">แจ้งเตือน</span>
+<div id="toast" class="toast"><i class="fa-solid fa-circle-check" style="color:var(--neon)"></i><span id="t-msg"></span></div>
+
+<header>
+  <div class="nav">
+    <a href="#" class="logo">
+      <img src="Neon MT GameZone Esports Emblem.png" alt="Logo">
+      <div class="logo-txt">MT <span>GAMEZONE</span></div>
+    </a>
+    <div class="actions">
+      <button class="btn" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> แชร์เว็บ</button>
+      <div id="auth-box"><button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button></div>
     </div>
+  </div>
+</header>
 
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone Logo" class="nav-logo-img">
-                <div class="logo-text">MT <span>GAMEZONE</span></div>
-            </a>
-            
-            <div class="user-actions">
-                <button class="btn-neon" onclick="copyLink()"><i class="fa-solid fa-share-nodes"></i> แชร์เว็บ</button>
-                <div id="auth-buttons">
-                    <button class="btn-neon-solid" onclick="openAuthModal('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
-                </div>
-            </div>
-        </div>
-    </header>
+<div class="container">
+  <div class="hero"><img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone"></div>
+  <div class="title"><i class="fa-solid fa-trophy" style="color:var(--neon)"></i> 10 อันดับเกมยอดนิยม</div>
+  <div class="tabs">
+    <button class="tab-btn active" id="b-mob" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Games</button>
+    <button class="tab-btn" id="b-pc" onclick="setPlat('pc')"><i class="fa-solid fa-desktop"></i> PC Games</button>
+  </div>
+  <div class="list" id="gameList"></div>
+</div>
 
-    <div class="container">
+<div class="b-nav">
+  <a href="#" class="b-item active"><i class="fa-solid fa-house"></i>หน้าแรก</a>
+  <a href="#gameList" class="b-item" onclick="setPlat('mob')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
+  <a href="#gameList" class="b-item" onclick="setPlat('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
+  <a href="#" class="b-item" onclick="openAuth('login')"><i class="fa-solid fa-user"></i>บัญชี</a>
+</div>
 
-        <!-- Hero Emblem Banner -->
-        <div class="hero-banner">
-            <img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone Play Explore Enjoy" class="hero-logo-img">
-        </div>
-        
-        <!-- Platform Switcher -->
-        <div class="section-title"><i class="fa-solid fa-trophy" style="color: var(--neon-green)"></i> 10 อันดับเกมยอดนิยม</div>
-        
-        <div class="platform-tabs">
-            <button class="platform-btn active" id="btn-mobile" onclick="switchPlatform('mobile')">
-                <i class="fa-solid fa-mobile-screen-button"></i> Mobile Games (Play Store)
-            </button>
-            <button class="platform-btn" id="btn-pc" onclick="switchPlatform('pc')">
-                <i class="fa-solid fa-desktop"></i> PC Games (Official Stores)
-            </button>
-        </div>
-
-        <!-- Games List (Play Store Style) -->
-        <div class="game-list" id="topGameList"></div>
-
+<div class="modal" id="gModal">
+  <div class="m-box">
+    <i class="fa-solid fa-xmark close" onclick="closeM('gModal')"></i>
+    <img id="m-img" class="m-logo">
+    <h2 id="m-title" style="color:var(--neon);margin-bottom:6px"></h2>
+    <div style="display:flex;justify-content:center;gap:15px;font-size:.9rem;color:var(--mut);margin-bottom:14px">
+      <span id="m-pub"></span><span id="m-rat" style="color:#fc0"></span><span id="m-sz"></span>
     </div>
+    <p id="m-desc" style="line-height:1.6;color:#ccc;margin-bottom:20px;text-align:left"></p>
+    <a id="m-dl" target="_blank" class="btn-solid" style="width:100%;font-size:1.05rem"></a>
+  </div>
+</div>
 
-    <!-- Mobile Bottom Navigation -->
-    <div class="mobile-bottom-nav">
-        <a href="#" class="mobile-nav-item active"><i class="fa-solid fa-house"></i>หน้าแรก</a>
-        <a href="#topGameList" class="mobile-nav-item" onclick="switchPlatform('mobile')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
-        <a href="#topGameList" class="mobile-nav-item" onclick="switchPlatform('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
-        <a href="#" class="mobile-nav-item" onclick="openAuthModal('login')"><i class="fa-solid fa-user"></i>บัญชี</a>
+<div class="modal" id="aModal">
+  <div class="m-box">
+    <i class="fa-solid fa-xmark close" onclick="closeM('aModal')"></i>
+    <div class="a-tabs">
+      <div class="a-tab active" id="t-in" onclick="swAuth('login')">เข้าสู่ระบบ</div>
+      <div class="a-tab" id="t-up" onclick="swAuth('reg')">สมัครสมาชิก</div>
     </div>
+    <form id="f-in" onsubmit="doAuth(event,1)">
+      <div class="fg"><label>อีเมล</label><input type="email" class="fc" placeholder="example@mail.com" required></div>
+      <div class="fg"><label>รหัสผ่าน</label><input type="password" class="fc" placeholder="••••••••" required></div>
+      <button type="submit" class="btn-solid" style="width:100%">เข้าสู่ระบบ</button>
+    </form>
+    <form id="f-up" style="display:none" onsubmit="doAuth(event,0)">
+      <div class="fg"><label>ชื่อผู้ใช้งาน</label><input type="text" class="fc" placeholder="Gamer123" required></div>
+      <div class="fg"><label>อีเมล</label><input type="email" class="fc" placeholder="example@mail.com" required></div>
+      <div class="fg"><label>รหัสผ่าน</label><input type="password" class="fc" placeholder="••••••••" required></div>
+      <button type="submit" class="btn-solid" style="width:100%">สมัครสมาชิก</button>
+    </form>
+  </div>
+</div>
 
-    <!-- Game Detail Modal -->
-    <div class="modal" id="gameModal">
-        <div class="modal-content">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('gameModal')"></i>
-            <img id="m-img" src="" class="modal-logo">
-            <h2 id="m-title" style="color: var(--neon-green); margin-bottom: 5px;"></h2>
-            <div style="display: flex; justify-content: center; gap: 15px; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
-                <span id="m-publisher"><i class="fa-solid fa-building"></i> </span>
-                <span id="m-rating" style="color: #ffcc00;"><i class="fa-solid fa-star"></i> </span>
-                <span id="m-size"><i class="fa-solid fa-hard-drive"></i> </span>
-            </div>
-            <p id="m-desc" style="line-height: 1.6; color: #ccc; margin-bottom: 20px; text-align: left;"></p>
-            <a id="m-download-btn" href="#" target="_blank" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">
-                <i class="fa-solid fa-download"></i> ดาวน์โหลด / เล่นเกมนี้
-            </a>
-        </div>
-    </div>
-
-    <!-- Login / Register Modal -->
-    <div class="modal" id="authModal">
-        <div class="modal-content">
-            <i class="fa-solid fa-xmark close-btn" onclick="closeModal('authModal')"></i>
-            
-            <div class="auth-tabs">
-                <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">เข้าสู่ระบบ</div>
-                <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">สมัครสมาชิก</div>
-            </div>
-
-            <!-- Login Form -->
-            <form id="form-login" onsubmit="handleAuth(event, 'login')">
-                <div class="form-group">
-                    <label>อีเมล (Email)</label>
-                    <input type="email" class="form-control" placeholder="example@mail.com" required>
-                </div>
-                <div class="form-group">
-                    <label>รหัสผ่าน (Password)</label>
-                    <input type="password" class="form-control" placeholder="••••••••" required>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 20px;">
-                    <label style="cursor: pointer;"><input type="checkbox"> จดจำฉันไว้</label>
-                    <a href="#" style="color: var(--neon-green); text-decoration: none;" onclick="showToast('ลิงก์รีเซ็ตรหัสผ่านถูกส่งไปยังอีเมลของคุณแล้ว')">ลืมรหัสผ่าน?</a>
-                </div>
-                <button type="submit" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">เข้าสู่ระบบ</button>
-            </form>
-
-            <!-- Register Form -->
-            <form id="form-register" style="display: none;" onsubmit="handleAuth(event, 'register')">
-                <div class="form-group">
-                    <label>ชื่อผู้ใช้งาน (Username)</label>
-                    <input type="text" class="form-control" placeholder="Gamer123" required>
-                </div>
-                <div class="form-group">
-                    <label>อีเมล (Email)</label>
-                    <input type="email" class="form-control" placeholder="example@mail.com" required>
-                </div>
-                <div class="form-group">
-                    <label>รหัสผ่าน (Password)</label>
-                    <input type="password" class="form-control" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn-neon-solid" style="width: 100%; font-size: 1.05rem;">สมัครสมาชิก</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // Official Provided Image Links for Mobile Games (Rank 1 - 10)
-        const mobileGames = [
-            { rank: 1, title: 'Clicker DIY: ASMR Charm Master', publisher: 'เล่นฆ่าเวลา', rating: 4.3, size: '132 MB', img: 'https://play-lh.googleusercontent.com/PekzZFcwigs-9QXd89vUiauwE120Jp-ef4ytfvpivBgGYx4F2OK0XCy5lL0uWO5-GYc0NLVGBdAlvYhtngipSA=w480-h960-rw', desc: 'เกม DIY ตกแต่งทำเครื่องราง ASMR สุดเพลิดเพลิน เหมาะสำหรับเล่นผ่อนคลายเพลินๆ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.clicker.diy.asmr', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 2, title: 'Roblox', publisher: 'ผจญภัย • จำลองสถานการณ์', rating: 4.6, size: '500 MB', img: 'https://play-lh.googleusercontent.com/QqZj22aXblAyYDxLQw-Gg0ycW0QkKhrDnwqgERZU9BMRXZnMlgXfq-94sikG5mEpt_I0lzZxcUzfLblmQgwYzUE=s96-rw', desc: 'จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ทั่วโลกได้อย่างอิสระ', downloadUrl: 'https://play.google.com/store/apps/details?id=com.roblox.client', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 3, title: 'Free Fire: สนามประลองพายุคลั่ง', publisher: 'แอ็กชัน • ยุทธวิธี', rating: 4.5, size: '1.8 GB', img: 'https://play-lh.googleusercontent.com/hnnIRd5AAf7T2gWzwki00aA9aWMX9JUbr8N42WjGqSVEq36Ey5_T0GCvyekeBkn_rSknR3vXvF4zTkZh4j-KRw=s96-rw', desc: 'เกมยิงเอาชีวิตรอดสุดมันส์ เอาชนะคู่แข่ง 50 คนในสนามประลองเพื่อเป็นผู้ชนะเพียงหนึ่งเดียว', downloadUrl: 'https://play.google.com/store/apps/details?id=com.dts.freefireth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 4, title: 'Garena RoV: Abyssal Rift', publisher: 'แอ็กชัน • โมบา', rating: 4.7, size: '2.5 GB', img: 'https://play-lh.googleusercontent.com/RcQHb6k8KV0w3U-qX495DnfgYmjIrH51JrAbQ6_t5dUunn8_aGZLIeLi_Cuy2mlv30aG0FBf1Wns2IwLf7q4vQ=w480-h960-rw', desc: 'สุดยอดเกม MOBA 5v5 บนมือถือ ต่อสู้ วางแผน และร่วมมือกับทีมเพื่อทำลายป้อมฝั่งตรงข้าม', downloadUrl: 'https://play.google.com/store/apps/details?id=com.garena.game.kgth', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 5, title: 'Block Blast!', publisher: 'ไขปัญญา • บล็อก', rating: 4.8, size: '116 MB', img: 'https://play-lh.googleusercontent.com/5FLR-EBlfNvoV9ydZkOMDqRF10nV64XcKdZzW_oQzmz2e8Me9PS5Zncnvviki0J3XumjO2a_lg6_IdwOqwnV=s128-rw', desc: 'เกมไขปริศนาต่อบล็อกเบาสมอง เล่นสนุก ลากและวางบล็อกเพื่อระเบิดคะแนนสูงสุด', downloadUrl: 'https://play.google.com/store/apps/details?id=com.block.blast.puzzle', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 6, title: 'Sword x Staff', publisher: 'สวมบทบาท (RPG)', rating: 4.9, size: '681 MB', img: 'https://play-lh.googleusercontent.com/ac6nV_L2WQhmTUUL3AMlsQ1gUVAJ4r865MFS9qZLn060ReExXwpi6bJOcZcAXKs1oq4SX_1-ykgbE_BaaDFGRw=s128-rw', desc: 'เกม RPG ผจญภัยสวมบทบาท พร้อมระบบต่อสู้ตระการตาและการอัปเดตสำคัญใหม่ล่าสุด', downloadUrl: 'https://play.google.com/store/search?q=Sword%20x%20Staff&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 7, title: 'Mobile Legends: Bang Bang', publisher: 'แอ็กชัน • ยุทธศาสตร์', rating: 4.5, size: '3.0 GB', img: 'https://play-lh.googleusercontent.com/MztmLpB1-_eFbHnqNzzvzl5zjiOH2BEb0D71uBxZYf_4BEmW3QEPWODhRtyqY7Qz4wRLwQ--Rg1RAjOFqtHSs-o=s128-rw', desc: 'เกม MOBA บนมือถือสุดฮิต เลือกฮีโร่คู่ใจแล้วเข้าร่วมการต่อสู้ 5v5 ที่ตื่นเต้นท้าทาย', downloadUrl: 'https://play.google.com/store/apps/details?id=com.mobile.legends', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 8, title: 'Steal Eggs: Monster Escape', publisher: 'เล่นฆ่าเวลา', rating: 3.9, size: '183 MB', img: 'https://play-lh.googleusercontent.com/VIv1J5fPLy-r9KrlA4WhLvzTboMphqs_jo_U9OqLyOmkr1AGAZ-nzIPo74_VISY7Ul28ZkObCkvlyyWPd_50=s128-rw', desc: 'เกมแอบขโมยไข่และวิ่งหนีมอนสเตอร์สุดตื่นเต้น เล่นง่าย สนุกคลายเครียด', downloadUrl: 'https://play.google.com/store/search?q=Steal%20Eggs%20Monster%20Escape&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 9, title: 'Gossip Harbor®: Merge & Story', publisher: 'ไขปัญญา • จำลองสถานการณ์', rating: 4.6, size: '164 MB', img: 'https://play-lh.googleusercontent.com/D8F39f3EhTElUOh2NX4q8-YXEW05YakLgto8gkeRnqqWmlqgLlj4gxO4lL-a6FMY5ZpYZYh-3aA5bQSzWoMa=s128-rw', desc: 'เกมไขปริศนาผสมของ (Merge) พร้อมสืบไขเรื่องราวและตกแต่งร้านอาหารริมทะเล', downloadUrl: 'https://play.google.com/store/apps/details?id=com.gossip.harbor.merge', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' },
-            { rank: 10, title: 'แอปแก้ลูกบาศก์', publisher: 'ไขปัญญา • เชิงตรรกะ', rating: 4.7, size: '11 MB', img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=300&q=80', desc: 'แอปช่วยไขปริศนาและสอนวิธีแก้รูบิก (Rubik Cube) อย่างเป็นขั้นตอน พกพาสะดวก ขนาดเล็ก', downloadUrl: 'https://play.google.com/store/search?q=%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9A%E0%B8%B2%E0%B8%A8%E0%B8%81%E0%B9%8C&c=apps', icon: 'fa-brands fa-google-play', btnText: 'ดาวน์โหลดบน Play Store' }
-        ];
-
-        // Official Provided Image Links for PC Games (Rank 1 - 10)
-        const pcGames = [
-            { rank: 1, title: 'VALORANT', publisher: 'Riot Games • Tactical FPS', rating: 4.9, size: '30 GB', img: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7e2ef45dce7e7065feb7a0f43dbfefc33b7e9595-4001x2251.svg?accountingTag=VAL', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
-            { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games • Open World', rating: 4.8, size: '110 GB', img: 'https://images.ctfassets.net/h1rqp7q66d54/3paoWCdthjPlrHzN81JhIa/2be86e3549bcf754a96776066fabe7d8/GTAV_Logo_1000x1000.svg?w=512&h=&fm=avif&q=75', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ', downloadUrl: 'https://store.rockstargames.com/game/buy-gta-v', icon: 'fa-solid fa-cart-shopping', btnText: 'ซื้อ/ดาวน์โหลดบน Rockstar Store' },
-            { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts • กีฬา', rating: 4.5, size: '100 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน', downloadUrl: 'https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED • Action RPG', rating: 4.7, size: '70 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/48a93d6445a67520ea49833c93dae8f2e68fc540/header_alt_assets_9.jpg?t=1792682505', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City', downloadUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 5, title: 'Elden Ring', publisher: 'FromSoftware • Action RPG', rating: 4.9, size: '60 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg?t=1790290043', desc: 'เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year', downloadUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 6, title: 'Apex Legends', publisher: 'Electronic Arts • Battle Royale', rating: 4.6, size: '75 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/dc5c390e9a273a7248f75c1b2d59987f6179323c/header_alt_assets_7.jpg?t=1794339458', desc: 'เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว', downloadUrl: 'https://store.steampowered.com/app/1172470/Apex_Legends/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
-            { rank: 7, title: 'Monster Hunter Wilds', publisher: 'CAPCOM • Action Hunting', rating: 4.8, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1787549555', desc: 'ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อนได้ 4 คน', downloadUrl: 'https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 8, title: 'Counter-Strike 2', publisher: 'Valve • Tactical FPS', rating: 4.6, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg?t=1793054556', desc: 'การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine', downloadUrl: 'https://store.steampowered.com/app/730/CounterStrike_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
-            { rank: 9, title: 'Forza Horizon 5', publisher: 'Xbox Game Studios • แข่งรถ', rating: 4.8, size: '130 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1788546569', desc: 'สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถแข่งลิขสิทธิ์แท้หลายร้อยคัน', downloadUrl: 'https://store.steampowered.com/app/1551360/Forza_Horizon_5/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games • Open World', rating: 4.9, size: '120 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง', downloadUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' }
-        ];
-
-        function renderTopGames(data) {
-            const list = document.getElementById('topGameList');
-            list.innerHTML = data.map(game => {
-                let rankClass = game.rank <= 3 ? `rank-${game.rank}` : '';
-                return `
-                    <div class="game-row" onclick='openModal("gameModal", ${JSON.stringify(game)})'>
-                        <div class="rank-num ${rankClass}">${game.rank}</div>
-                        <div class="game-icon-box">
-                            <img src="${game.img}" alt="${game.title}">
-                        </div>
-                        <div class="game-details">
-                            <div class="game-row-title">${game.title}</div>
-                            <div class="game-row-sub">${game.publisher}</div>
-                            <div class="game-row-stats">
-                                <span class="rating-star">${game.rating} <i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-hard-drive"></i> ${game.size}</span>
-                            </div>
-                        </div>
-                        <div class="game-row-action">
-                            <a href="${game.downloadUrl}" target="_blank" class="btn-install-pill" onclick="event.stopPropagation()">
-                                <i class="fa-solid fa-download"></i> ติดตั้ง
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function switchPlatform(type) {
-            document.getElementById('btn-mobile').classList.toggle('active', type === 'mobile');
-            document.getElementById('btn-pc').classList.toggle('active', type === 'pc');
-            renderTopGames(type === 'mobile' ? mobileGames : pcGames);
-        }
-
-        function openModal(modalId, game = null) {
-            if(game) {
-                document.getElementById('m-img').src = game.img;
-                document.getElementById('m-title').innerText = `#${game.rank} ${game.title}`;
-                document.getElementById('m-publisher').innerHTML = `<i class="fa-solid fa-building"></i> ${game.publisher}`;
-                document.getElementById('m-rating').innerHTML = `<i class="fa-solid fa-star"></i> ${game.rating}`;
-                document.getElementById('m-size').innerHTML = `<i class="fa-solid fa-hard-drive"></i> ${game.size}`;
-                document.getElementById('m-desc').innerText = game.desc;
-
-                const dlBtn = document.getElementById('m-download-btn');
-                dlBtn.href = game.downloadUrl;
-                dlBtn.innerHTML = `<i class="${game.icon}"></i> ${game.btnText}`;
-            }
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function openAuthModal(type) {
-            openModal('authModal');
-            switchAuthTab(type);
-        }
-
-        function switchAuthTab(type) {
-            if(type === 'login') {
-                document.getElementById('tab-login').classList.add('active');
-                document.getElementById('tab-register').classList.remove('active');
-                document.getElementById('form-login').style.display = 'block';
-                document.getElementById('form-register').style.display = 'none';
-            } else {
-                document.getElementById('tab-register').classList.add('active');
-                document.getElementById('tab-login').classList.remove('active');
-                document.getElementById('form-register').style.display = 'block';
-                document.getElementById('form-login').style.display = 'none';
-            }
-        }
-
-        function handleAuth(e, type) {
-            e.preventDefault();
-            showToast(type === 'login' ? "เข้าสู่ระบบสำเร็จแล้ว!" : "สมัครสมาชิกสำเร็จแล้ว!");
-            closeModal('authModal');
-            document.getElementById('auth-buttons').innerHTML = `
-                <span style="color: var(--neon-green); font-weight: bold; margin-right: 8px;">
-                    <i class="fa-solid fa-user-check"></i> ผู้ใช้งาน (Gamer)
-                </span>
-                <button class="btn-neon" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
-            `;
-        }
-
-        function logout() {
-            showToast("ออกจากระบบแล้ว");
-            document.getElementById('auth-buttons').innerHTML = `
-                <button class="btn-neon-solid" onclick="openAuthModal('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
-            `;
-        }
-
-        function copyLink() {
-            navigator.clipboard.writeText("https://mtgamezone.netlify.app").then(() => {
-                showToast("คัดลอกลิงก์สำเร็จแล้ว!");
-            });
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.style.display = 'flex';
-            setTimeout(() => { toast.style.display = 'none'; }, 3000);
-        }
-
-        renderTopGames(mobileGames);
-    </script>
+<script>
+const $=id=>document.getElementById(id),
+data={
+  mob:[
+    ['Clicker DIY: ASMR Charm Master','เล่นฆ่าเวลา',4.3,'132 MB','https://play-lh.googleusercontent.com/PekzZFcwigs-9QXd89vUiauwE120Jp-ef4ytfvpivBgGYx4F2OK0XCy5lL0uWO5-GYc0NLVGBdAlvYhtngipSA=w480-h960-rw','เกม DIY ตกแต่งทำเครื่องราง ASMR สุดเพลิดเพลิน เหมาะสำหรับเล่นผ่อนคลาย','https://play.google.com/store/apps/details?id=com.clicker.diy.asmr','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Roblox','ผจญภัย • จำลองสถานการณ์',4.6,'500 MB','https://play-lh.googleusercontent.com/QqZj22aXblAyYDxLQw-Gg0ycW0QkKhrDnwqgERZU9BMRXZnMlgXfq-94sikG5mEpt_I0lzZxcUzfLblmQgwYzUE=s96-rw','จักรวาลเสมือนจริงที่คุณสามารถสร้างและเล่นเกมร่วมกับเพื่อนๆ ทั่วโลก','https://play.google.com/store/apps/details?id=com.roblox.client','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Free Fire: สนามประลองพายุคลั่ง','แอ็กชัน • ยุทธวิธี',4.5,'1.8 GB','https://play-lh.googleusercontent.com/hnnIRd5AAf7T2gWzwki00aA9aWMX9JUbr8N42WjGqSVEq36Ey5_T0GCvyekeBkn_rSknR3vXvF4zTkZh4j-KRw=s96-rw','เกมยิงเอาชีวิตรอดสุดมันส์ เอาชนะคู่แข่ง 50 คนในสนามประลอง','https://play.google.com/store/apps/details?id=com.dts.freefireth','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Garena RoV: Abyssal Rift','แอ็กชัน • โมบา',4.7,'2.5 GB','https://play-lh.googleusercontent.com/RcQHb6k8KV0w3U-qX495DnfgYmjIrH51JrAbQ6_t5dUunn8_aGZLIeLi_Cuy2mlv30aG0FBf1Wns2IwLf7q4vQ=w480-h960-rw','สุดยอดเกม MOBA 5v5 บนมือถือ ต่อสู้ วางแผน และร่วมมือกับทีม','https://play.google.com/store/apps/details?id=com.garena.game.kgth','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Block Blast!','ไขปัญญา • บล็อก',4.8,'116 MB','https://play-lh.googleusercontent.com/5FLR-EBlfNvoV9ydZkOMDqRF10nV64XcKdZzW_oQzmz2e8Me9PS5Zncnvviki0J3XumjO2a_lg6_IdwOqwnV=s128-rw','เกมไขปริศนาต่อบล็อกเบาสมอง เล่นสนุก ลากและวางบล็อกทำคะแนนสูงสุด','https://play.google.com/store/apps/details?id=com.block.blast.puzzle','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Sword x Staff','สวมบทบาท (RPG)',4.9,'681 MB','https://play-lh.googleusercontent.com/ac6nV_L2WQhmTUUL3AMlsQ1gUVAJ4r865MFS9qZLn060ReExXwpi6bJOcZcAXKs1oq4SX_1-ykgbE_BaaDFGRw=s128-rw','เกม RPG ผจญภัยสวมบทบาท พร้อมระบบต่อสู้ตระการตาและการอัปเดตใหม่','https://play.google.com/store/search?q=Sword%20x%20Staff&c=apps','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Mobile Legends: Bang Bang','แอ็กชัน • ยุทธศาสตร์',4.5,'3.0 GB','https://play-lh.googleusercontent.com/MztmLpB1-_eFbHnqNzzvzl5zjiOH2BEb0D71uBxZYf_4BEmW3QEPWODhRtyqY7Qz4wRLwQ--Rg1RAjOFqtHSs-o=s128-rw','เกม MOBA บนมือถือสุดฮิต เลือกฮีโร่คู่ใจเข้าร่วมการต่อสู้ 5v5','https://play.google.com/store/apps/details?id=com.mobile.legends','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Steal Eggs: Monster Escape','เล่นฆ่าเวลา',3.9,'183 MB','https://play-lh.googleusercontent.com/VIv1J5fPLy-r9KrlA4WhLvzTboMphqs_jo_U9OqLyOmkr1AGAZ-nzIPo74_VISY7Ul28ZkObCkvlyyWPd_50=s128-rw','เกมแอบขโมยไข่และวิ่งหนีมอนสเตอร์สุดตื่นเต้น เล่นง่าย คลายเครียด','https://play.google.com/store/search?q=Steal%20Eggs%20Monster%20Escape&c=apps','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['Gossip Harbor®: Merge & Story','ไขปัญญา • จำลองสถานการณ์',4.6,'164 MB','https://play-lh.googleusercontent.com/D8F39f3EhTElUOh2NX4q8-YXEW05YakLgto8gkeRnqqWmlqgLlj4gxO4lL-a6FMY5ZpYZYh-3aA5bQSzWoMa=s128-rw','เกมไขปริศนาผสมของ (Merge) พร้อมสืบเรื่องราวและตกแต่งร้านอาหาร','https://play.google.com/store/apps/details?id=com.gossip.harbor.merge','fa-brands fa-google-play','ดาวน์โหลดบน Play Store'],
+    ['แอปแก้ลูกบาศก์','ไขปัญญา • เชิงตรรกะ',4.7,'11 MB','https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&w=300&q=80','แอปช่วยไขปริศนาและสอนวิธีแก้รูบิก (Rubik Cube) อย่างเป็นขั้นตอน','https://play.google.com/store/search?q=%E0%B9%81%E0%B8%AD%E0%B8%9B%E0%B9%81%E0%B8%81%E0%B9%89%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%9A%E0%B8%B2%E0%B8%A8%E0%B8%81%E0%B9%8C&c=apps','fa-brands fa-google-play','ดาวน์โหลดบน Play Store']
+  ],
+  pc:[
+    ['VALORANT','Riot Games • Tactical FPS',4.9,'30 GB','https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7e2ef45dce7e7065feb7a0f43dbfefc33b7e9595-4001x2251.svg?accountingTag=VAL','เกมยิงกลยุทธ์ 5v5 เน้นดวลปืนและความสามารถเฉพาะตัวของเอเจนท์','https://playvalorant.com/','fa-solid fa-globe','ดาวน์โหลดฟรีบน Riot Games'],
+    ['Grand Theft Auto V','Rockstar Games • Open World',4.8,'110 GB','https://images.ctfassets.net/h1rqp7q66d54/3paoWCdthjPlrHzN81JhIa/2be86e3549bcf754a96776066fabe7d8/GTAV_Logo_1000x1000.svg?w=512&h=&fm=avif&q=75','เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ','https://store.rockstargames.com/game/buy-gta-v','fa-solid fa-cart-shopping','ซื้อ/ดาวน์โหลดบน Rockstar'],
+    ['EA Sports FC 24','Electronic Arts • กีฬา',4.5,'100 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366','เกมจำลองการแข่งขันฟุตบอลที่สมจริงพร้อมลิขสิทธิ์นักเตะครบครัน','https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/','fa-brands fa-steam','ดาวน์โหลดบน Steam'],
+    ['Cyberpunk 2077','CD PROJEKT RED • Action RPG',4.7,'70 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/48a93d6445a67520ea49833c93dae8f2e68fc540/header_alt_assets_9.jpg?t=1792682505','เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City','https://store.steampowered.com/app/1091500/Cyberpunk_2077/','fa-brands fa-steam','ดาวน์โหลดบน Steam'],
+    ['Elden Ring','FromSoftware • Action RPG',4.9,'60 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg?t=1790290043','เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year','https://store.steampowered.com/app/1245620/ELDEN_RING/','fa-brands fa-steam','ดาวน์โหลดบน Steam'],
+    ['Apex Legends','Electronic Arts • Battle Royale',4.6,'75 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/dc5c390e9a273a7248f75c1b2d59987f6179323c/header_alt_assets_7.jpg?t=1794339458','เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว','https://store.steampowered.com/app/1172470/Apex_Legends/','fa-brands fa-steam','ดาวน์โหลดฟรีบน Steam'],
+    ['Monster Hunter Wilds','CAPCOM • Action Hunting',4.8,'85 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1787549555','ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อน 4 คน','https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/','fa-brands fa-steam','ดาวน์โหลดบน Steam'],
+    ['Counter-Strike 2','Valve • Tactical FPS',4.6,'85 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg?t=1793054556','การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine','https://store.steampowered.com/app/730/CounterStrike_2/','fa-brands fa-steam','ดาวน์โหลดฟรีบน Steam'],
+    ['Forza Horizon 5','Xbox Game Studios • แข่งรถ',4.8,'130 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1788546569','สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถลิขสิทธิ์หลายร้อยคัน','https://store.steampowered.com/app/1551360/Forza_Horizon_5/','fa-brands fa-steam','ดาวน์โหลดบน Steam'],
+    ['Red Dead Redemption 2','Rockstar Games • Open World',4.9,'120 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961','เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง','https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/','fa-brands fa-steam','ดาวน์โหลดบน Steam']
+  ]
+};
+let cur='mob';
+function setPlat(t){
+  cur=t;
+  $('b-mob').classList.toggle('active',t==='mob');
+  $('b-pc').classList.toggle('active',t==='pc');
+  $('gameList').innerHTML=data[t].map((g,i)=>`
+    <div class="row" onclick="openG(${i})">
+      <div class="rank ${i<3?'r'+(i+1):''}">${i+1}</div>
+      <div class="icon-box"><img src="${g[4]}" alt="${g[0]}"></div>
+      <div class="info">
+        <div class="g-title">${g[0]}</div>
+        <div class="g-sub">${g[1]}</div>
+        <div class="g-stat"><span class="star">${g[2]} <i class="fa-solid fa-star"></i></span><span><i class="fa-solid fa-hard-drive"></i> ${g[3]}</span></div>
+      </div>
+      <a href="${g[6]}" target="_blank" class="pill" onclick="event.stopPropagation()"><i class="fa-solid fa-download"></i> ติดตั้ง</a>
+    </div>`).join('');
+}
+function openG(i){
+  const g=data[cur][i];
+  $('m-img').src=g[4];$('m-title').innerText=`#${i+1} ${g[0]}`;
+  $('m-pub').innerHTML=`<i class="fa-solid fa-building"></i> ${g[1]}`;
+  $('m-rat').innerHTML=`<i class="fa-solid fa-star"></i> ${g[2]}`;
+  $('m-sz').innerHTML=`<i class="fa-solid fa-hard-drive"></i> ${g[3]}`;
+  $('m-desc').innerText=g[5];$('m-dl').href=g[6];
+  $('m-dl').innerHTML=`<i class="${g[7]}"></i> ${g[8]}`;
+  $('gModal').style.display='flex';
+}
+const closeM=id=>$(id).style.display='none',
+openAuth=t=>{$('aModal').style.display='flex';swAuth(t)},
+swAuth=t=>{
+  const isIn=t==='login';
+  $('t-in').classList.toggle('active',isIn);$('t-up').classList.toggle('active',!isIn);
+  $('f-in').style.display=isIn?'block':'none';$('f-up').style.display=isIn?'none':'block';
+},
+doAuth=(e,isIn)=>{
+  e.preventDefault();toast(isIn?'เข้าสู่ระบบสำเร็จ!':'สมัครสมาชิกสำเร็จ!');closeM('aModal');
+  $('auth-box').innerHTML=`<span style="color:var(--neon);font-weight:700;margin-right:8px"><i class="fa-solid fa-user-check"></i> Gamer</span><button class="btn" onclick="out()"><i class="fa-solid fa-right-from-bracket"></i></button>`;
+},
+out=()=>{toast('ออกจากระบบแล้ว');$('auth-box').innerHTML=`<button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>`},
+copyLink=()=>navigator.clipboard.writeText('https://mtgamezone.netlify.app').then(()=>toast('คัดลอกลิงก์สำเร็จ!')),
+toast=m=>{$('t-msg').innerText=m;$('toast').style.display='flex';setTimeout(()=>$('toast').style.display='none',2800)};
+setPlat('mob');
+</script>
 </body>
 </html>
