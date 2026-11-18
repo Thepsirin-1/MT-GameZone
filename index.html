@@ -129,20 +129,38 @@ header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;t
       <div class="a-tab" id="t-up" onclick="swAuth('reg')">สมัครสมาชิก</div>
     </div>
     <form id="f-in" onsubmit="doAuth(event,1)">
-      <div class="fg"><label>อีเมล</label><input type="email" class="fc" placeholder="example@mail.com" required></div>
-      <div class="fg"><label>รหัสผ่าน</label><input type="password" class="fc" placeholder="••••••••" required></div>
+      <div class="fg"><label>อีเมล</label><input type="email" id="in-mail" class="fc" placeholder="example@mail.com" required></div>
+      <div class="fg"><label>รหัสผ่าน</label><input type="password" id="in-pass" class="fc" placeholder="••••••••" required></div>
       <button type="submit" class="btn-solid" style="width:100%">เข้าสู่ระบบ</button>
     </form>
     <form id="f-up" style="display:none" onsubmit="doAuth(event,0)">
-      <div class="fg"><label>ชื่อผู้ใช้งาน</label><input type="text" class="fc" placeholder="Gamer123" required></div>
-      <div class="fg"><label>อีเมล</label><input type="email" class="fc" placeholder="example@mail.com" required></div>
-      <div class="fg"><label>รหัสผ่าน</label><input type="password" class="fc" placeholder="••••••••" required></div>
+      <div class="fg"><label>ชื่อผู้ใช้งาน</label><input type="text" id="up-name" class="fc" placeholder="Gamer123" required></div>
+      <div class="fg"><label>อีเมล</label><input type="email" id="up-mail" class="fc" placeholder="example@mail.com" required></div>
+      <div class="fg"><label>รหัสผ่าน (อย่างน้อย 6 ตัวอักษร)</label><input type="password" id="up-pass" class="fc" placeholder="••••••••" minlength="6" required></div>
       <button type="submit" class="btn-solid" style="width:100%">สมัครสมาชิก</button>
     </form>
   </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAddNb-M3v4PsTM2zTig8eKE5vatOn3_O8",
+  authDomain: "mt-gamezone.firebaseapp.com",
+  projectId: "mt-gamezone",
+  storageBucket: "mt-gamezone.firebasestorage.app",
+  messagingSenderId: "776401540472",
+  appId: "1:776401540472:web:3cf510c5a03f01f93ea48d",
+  measurementId: "G-B00RMEM5W4"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
 const $=id=>document.getElementById(id),
 data={
   mob:[
@@ -170,32 +188,38 @@ data={
     ['Red Dead Redemption 2','Rockstar Games • Open World',4.9,'120 GB','https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961','เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง','https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/','fa-brands fa-steam','ดาวน์โหลดบน Steam']
   ]
 };
-let cur='mob',favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
+
+let cur='mob', curUser=null, favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
 const allGames=[...data.mob.map((g,i)=>({p:'mob',r:i+1,g})),...data.pc.map((g,i)=>({p:'pc',r:i+1,g}))];
 
-function toggleTheme(){
+window.toggleTheme=()=>{
   const isL=document.body.classList.toggle('light');
   $('themeBtn').innerHTML=isL?'<i class="fa-solid fa-moon"></i>':'<i class="fa-solid fa-sun"></i>';
   localStorage.setItem('mt_theme',isL?'light':'dark');
-}
-if(localStorage.getItem('mt_theme')==='light')toggleTheme();
+};
+if(localStorage.getItem('mt_theme')==='light')window.toggleTheme();
 
-function setPlat(t){
+window.setPlat=t=>{
   cur=t;
   ['mob','pc','fav'].forEach(k=>$('b-'+k).classList.toggle('active',t===k));
   render();
-}
+};
 
-function toggleFav(name,e){
+window.toggleFav=async(name,e)=>{
   if(e)e.stopPropagation();
   const idx=favs.indexOf(name);
   if(idx>-1){favs.splice(idx,1);toast('ลบออกจากเกมโปรดแล้ว')}
   else{favs.push(name);toast('บันทึกในเกมโปรดแล้ว ❤️')}
-  localStorage.setItem('mt_fav',JSON.stringify(favs));
+  
+  if(curUser){
+    try{await setDoc(doc(db,"users",curUser.uid),{favs},{merge:true})}catch(err){console.error(err)}
+  }else{
+    localStorage.setItem('mt_fav',JSON.stringify(favs));
+  }
   render();
-}
+};
 
-function render(){
+window.render=()=>{
   $('favCnt').innerText=favs.length;
   const kw=$('q').value.trim().toLowerCase();
   let list=cur==='fav'?allGames.filter(x=>favs.includes(x.g[0])):data[cur].map((g,i)=>({p:cur,r:i+1,g}));
@@ -217,9 +241,9 @@ function render(){
       </div>
     </div>`;
   }).join(''):`<div style="text-align:center;padding:40px;color:var(--mut)">ไม่พบเกมที่ค้นหา</div>`;
-}
+};
 
-function openG(p,i){
+window.openG=(p,i)=>{
   const g=data[p][i],liked=favs.includes(g[0]);
   $('m-img').src=g[4];$('m-title').innerText=`#${i+1} ${g[0]}`;
   $('m-pub').innerHTML=`<i class="fa-solid fa-building"></i> ${g[1]}`;
@@ -229,24 +253,60 @@ function openG(p,i){
   $('m-dl').innerHTML=`<i class="${g[7]}"></i> ${g[8]}`;
   const mf=$('m-fav');mf.className='btn'+(liked?' liked':'');
   mf.style.color=liked?'#ff2e63':'';mf.style.borderColor=liked?'#ff2e63':'';
-  mf.onclick=()=>{toggleFav(g[0]);openG(p,i)};
+  mf.onclick=()=>{window.toggleFav(g[0]);window.openG(p,i)};
   $('gModal').style.display='flex';
-}
+};
 
-const closeM=id=>$(id).style.display='none',
-openAuth=t=>{$('aModal').style.display='flex';swAuth(t)},
-swAuth=t=>{
+window.closeM=id=>$(id).style.display='none';
+window.openAuth=t=>{$('aModal').style.display='flex';window.swAuth(t)};
+window.swAuth=t=>{
   const isIn=t==='login';
   $('t-in').classList.toggle('active',isIn);$('t-up').classList.toggle('active',!isIn);
   $('f-in').style.display=isIn?'block':'none';$('f-up').style.display=isIn?'none':'block';
-},
-doAuth=(e,isIn)=>{
-  e.preventDefault();toast(isIn?'เข้าสู่ระบบสำเร็จ!':'สมัครสมาชิกสำเร็จ!');closeM('aModal');
-  $('auth-box').innerHTML=`<span style="color:var(--neon);font-weight:700;margin-right:6px"><i class="fa-solid fa-user-check"></i> Gamer</span><button class="btn" onclick="out()"><i class="fa-solid fa-right-from-bracket"></i></button>`;
-},
-out=()=>{toast('ออกจากระบบแล้ว');$('auth-box').innerHTML=`<button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> <span class="hide-m">เข้าสู่ระบบ</span></button>`},
-copyLink=()=>navigator.clipboard.writeText(location.href).then(()=>toast('คัดลอกลิงก์สำเร็จ!')),
-toast=m=>{$('t-msg').innerText=m;$('toast').style.display='flex';setTimeout(()=>$('toast').style.display='none',2600)};
+};
+
+window.doAuth=async(e,isIn)=>{
+  e.preventDefault();
+  try{
+    if(isIn){
+      await signInWithEmailAndPassword(auth,$('in-mail').value,$('in-pass').value);
+      toast('เข้าสู่ระบบสำเร็จ!');
+    }else{
+      const res=await createUserWithEmailAndPassword(auth,$('up-mail').value,$('up-pass').value);
+      const name=$('up-name').value.trim();
+      await updateProfile(res.user,{displayName:name});
+      await setDoc(doc(db,"users",res.user.uid),{username:name,favs});
+      toast('สมัครสมาชิกสำเร็จ!');
+    }
+    closeM('aModal');
+  }catch(err){
+    const msg=err.code==='auth/invalid-credential'?'อีเมลหรือรหัสผ่านไม่ถูกต้อง':
+              err.code==='auth/email-already-in-use'?'อีเมลนี้ถูกใช้งานแล้ว':
+              err.code==='auth/weak-password'?'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร':'เกิดข้อผิดพลาด: '+err.message;
+    toast(msg);
+  }
+};
+
+window.out=async()=>{await signOut(auth);toast('ออกจากระบบแล้ว')};
+window.copyLink=()=>navigator.clipboard.writeText(location.href).then(()=>toast('คัดลอกลิงก์สำเร็จ!'));
+window.toast=m=>{$('t-msg').innerText=m;$('toast').style.display='flex';setTimeout(()=>$('toast').style.display='none',2800)};
+
+onAuthStateChanged(auth, async user=>{
+  curUser=user;
+  if(user){
+    const name=user.displayName||user.email.split('@')[0];
+    $('auth-box').innerHTML=`<span style="color:var(--neon);font-weight:700;margin-right:6px"><i class="fa-solid fa-user-check"></i> ${name}</span><button class="btn" onclick="out()" title="ออกจากระบบ"><i class="fa-solid fa-right-from-bracket"></i></button>`;
+    try{
+      const snap=await getDoc(doc(db,"users",user.uid));
+      if(snap.exists()&&snap.data().favs)favs=snap.data().favs;
+    }catch(err){console.error(err)}
+  }else{
+    $('auth-box').innerHTML=`<button class="btn-solid" onclick="openAuth('login')"><i class="fa-solid fa-right-to-bracket"></i> <span class="hide-m">เข้าสู่ระบบ</span></button>`;
+    favs=JSON.parse(localStorage.getItem('mt_fav')||'[]');
+  }
+  render();
+});
+
 render();
 </script>
 </body>
