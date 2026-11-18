@@ -38,87 +38,177 @@
             position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
         }
         .nav-container {
-            max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between;
-            align-items: center; padding: 12px 20px;
+            max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between;
+            align-items: center; padding: 10px 20px;
         }
-        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .nav-logo-img {
+            height: 46px; width: auto; border-radius: 8px;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green-glow);
+            object-fit: cover;
+        }
         .logo-text {
-            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900;
+            font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900;
             background: var(--silver-metal); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .logo-text span { color: var(--neon-green); -webkit-text-fill-color: var(--neon-green); }
 
-        .user-actions { display: flex; align-items: center; gap: 12px; }
+        .user-actions { display: flex; align-items: center; gap: 10px; }
 
         .btn-neon {
             background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
-            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+            padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 0.9rem;
         }
         .btn-neon:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green-glow); }
 
         .btn-neon-solid {
             background: var(--neon-green); color: #000; border: 1px solid var(--neon-green);
             padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.9rem;
         }
         .btn-neon-solid:hover { box-shadow: 0 0 20px var(--neon-green-glow); transform: translateY(-2px); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* Hero Logo Banner */
+        .hero-banner {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin-bottom: 30px; padding: 20px; background: radial-gradient(circle at center, rgba(0,255,102,0.12) 0%, rgba(18,21,30,0.8) 70%);
+            border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        .hero-logo-img {
+            max-width: 340px; width: 100%; height: auto; border-radius: 14px;
+            box-shadow: 0 0 25px var(--neon-green-glow);
+            border: 1px solid rgba(0, 255, 102, 0.4);
+        }
+
         .section-title {
-            font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;
+            font-size: 1.4rem; margin-bottom: 18px; display: flex; align-items: center;
             gap: 10px; border-left: 4px solid var(--neon-green); padding-left: 12px;
         }
 
         /* Platform Switcher Tabs */
         .platform-tabs {
-            display: flex; gap: 15px; margin-bottom: 25px; background: var(--bg-card);
+            display: flex; gap: 12px; margin-bottom: 22px; background: var(--bg-card);
             padding: 8px; border-radius: 12px; border: 1px solid var(--border-color);
         }
         .platform-btn {
             flex: 1; padding: 12px; border: none; background: transparent; color: var(--text-muted);
-            font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s;
+            font-size: 1.05rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s;
             display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .platform-btn.active {
             background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green-glow);
         }
 
-        /* Top 10 Game Grid */
-        .game-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px; margin-bottom: 40px;
+        /* Play Store Style List View */
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
         }
-        .game-card {
-            background: var(--bg-card); border-radius: 10px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; position: relative; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; padding-top: 15px;
+        .game-row {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
-        .game-card:hover {
-            transform: translateY(-5px); border-color: var(--neon-green);
-            box-shadow: 0 5px 15px var(--neon-green-glow);
+        .game-row:hover {
+            transform: translateX(6px);
+            border-color: var(--neon-green);
+            background: #161b26;
+            box-shadow: 0 4px 15px var(--neon-green-glow);
         }
-        .rank-badge {
-            position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.85);
-            color: var(--neon-green); font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
-            font-weight: 900; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--neon-green);
-            z-index: 2;
+        .rank-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            width: 32px;
+            text-align: center;
+            color: var(--text-muted);
+            flex-shrink: 0;
         }
-        .rank-1 { background: #ffd700; color: #000; border-color: #ffd700; }
-        .rank-2 { background: #c0c0c0; color: #000; border-color: #c0c0c0; }
-        .rank-3 { background: #cd7f32; color: #000; border-color: #cd7f32; }
+        .rank-1 { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); font-size: 1.4rem; }
+        .rank-2 { color: #e0e0e0; text-shadow: 0 0 10px rgba(224, 224, 224, 0.4); font-size: 1.35rem; }
+        .rank-3 { color: #cd7f32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.4); font-size: 1.3rem; }
 
-        .game-logo-wrapper {
-            width: 100px; height: 100px; border-radius: 20px; overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.1); background: #000;
-            display: flex; align-items: center; justify-content: center; margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        .game-icon-box {
+            width: 68px;
+            height: 68px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-        .game-img { width: 100%; height: 100%; object-fit: cover; }
-        .game-info { padding: 15px 12px; width: 100%; text-align: center; }
-        .game-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .game-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
-        .rating { color: #ffcc00; }
+        .game-icon-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-details {
+            flex: 1;
+            min-width: 0; /* ป้องกันข้อความดันทะลุกรอบ */
+        }
+        .game-row-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .game-row-sub {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .game-row-stats {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.85rem;
+            color: var(--text-silver);
+        }
+        .rating-star { color: #ffcc00; font-weight: 600; }
+
+        .game-row-action {
+            flex-shrink: 0;
+        }
+        .btn-install-pill {
+            background: rgba(0, 255, 102, 0.12);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .game-row:hover .btn-install-pill, .btn-install-pill:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 12px var(--neon-green-glow);
+        }
 
         /* Modal Base */
         .modal {
@@ -165,8 +255,15 @@
         .mobile-nav-item.active { color: var(--neon-green); }
 
         @media (max-width: 768px) {
-            .game-grid { grid-template-columns: repeat(2, 1fr); }
-            .platform-btn { font-size: 0.95rem; }
+            .logo-text { font-size: 1.15rem; }
+            .nav-logo-img { height: 38px; }
+            .hero-logo-img { max-width: 260px; }
+            .platform-btn { font-size: 0.9rem; padding: 10px 8px; }
+            .game-row { padding: 12px; gap: 12px; }
+            .rank-num { width: 24px; font-size: 1.05rem; }
+            .game-icon-box { width: 58px; height: 58px; border-radius: 14px; }
+            .game-row-title { font-size: 1rem; }
+            .btn-install-pill { padding: 6px 12px; font-size: 0.8rem; }
             .mobile-bottom-nav { display: flex; }
         }
     </style>
@@ -181,7 +278,7 @@
     <header>
         <div class="nav-container">
             <a href="#" class="logo">
-                <i class="fa-solid fa-gamepad fa-2x" style="color: var(--neon-green)"></i>
+                <img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone Logo" class="nav-logo-img">
                 <div class="logo-text">MT <span>GAMEZONE</span></div>
             </a>
             
@@ -195,6 +292,11 @@
     </header>
 
     <div class="container">
+
+        <!-- Hero Emblem Banner -->
+        <div class="hero-banner">
+            <img src="Neon MT GameZone Esports Emblem.png" alt="MT GameZone Play Explore Enjoy" class="hero-logo-img">
+        </div>
         
         <!-- Platform Switcher -->
         <div class="section-title"><i class="fa-solid fa-trophy" style="color: var(--neon-green)"></i> 10 อันดับเกมยอดนิยม</div>
@@ -208,16 +310,16 @@
             </button>
         </div>
 
-        <!-- Games Grid -->
-        <div class="game-grid" id="topGameGrid"></div>
+        <!-- Games List (Play Store Style) -->
+        <div class="game-list" id="topGameList"></div>
 
     </div>
 
     <!-- Mobile Bottom Navigation -->
     <div class="mobile-bottom-nav">
         <a href="#" class="mobile-nav-item active"><i class="fa-solid fa-house"></i>หน้าแรก</a>
-        <a href="#" class="mobile-nav-item" onclick="switchPlatform('mobile')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
-        <a href="#" class="mobile-nav-item" onclick="switchPlatform('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
+        <a href="#topGameList" class="mobile-nav-item" onclick="switchPlatform('mobile')"><i class="fa-solid fa-mobile-screen"></i>Mobile</a>
+        <a href="#topGameList" class="mobile-nav-item" onclick="switchPlatform('pc')"><i class="fa-solid fa-desktop"></i>PC</a>
         <a href="#" class="mobile-nav-item" onclick="openAuthModal('login')"><i class="fa-solid fa-user"></i>บัญชี</a>
     </div>
 
@@ -302,34 +404,40 @@
 
         // Official Provided Image Links for PC Games (Rank 1 - 10)
         const pcGames = [
-            { rank: 1, title: 'VALORANT', publisher: 'Riot Games', rating: 4.9, size: '30 GB', img: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7e2ef45dce7e7065feb7a0f43dbfefc33b7e9595-4001x2251.svg?accountingTag=VAL', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
-            { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games', rating: 4.8, size: '110 GB', img: 'https://images.ctfassets.net/h1rqp7q66d54/3paoWCdthjPlrHzN81JhIa/2be86e3549bcf754a96776066fabe7d8/GTAV_Logo_1000x1000.svg?w=512&h=&fm=avif&q=75', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ', downloadUrl: 'https://store.rockstargames.com/game/buy-gta-v', icon: 'fa-solid fa-cart-shopping', btnText: 'ซื้อ/ดาวน์โหลดบน Rockstar Store' },
-            { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts', rating: 4.5, size: '100 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน', downloadUrl: 'https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED', rating: 4.7, size: '70 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/48a93d6445a67520ea49833c93dae8f2e68fc540/header_alt_assets_9.jpg?t=1792682505', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City', downloadUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 5, title: 'Elden Ring', publisher: 'FromSoftware', rating: 4.9, size: '60 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg?t=1790290043', desc: 'เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year', downloadUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 6, title: 'Apex Legends', publisher: 'Electronic Arts', rating: 4.6, size: '75 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/dc5c390e9a273a7248f75c1b2d59987f6179323c/header_alt_assets_7.jpg?t=1794339458', desc: 'เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว', downloadUrl: 'https://store.steampowered.com/app/1172470/Apex_Legends/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
-            { rank: 7, title: 'Monster Hunter Wilds', publisher: 'CAPCOM', rating: 4.8, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1787549555', desc: 'ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อนได้ 4 คน', downloadUrl: 'https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 8, title: 'Counter-Strike 2', publisher: 'Valve', rating: 4.6, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg?t=1793054556', desc: 'การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine', downloadUrl: 'https://store.steampowered.com/app/730/CounterStrike_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
-            { rank: 9, title: 'Forza Horizon 5', publisher: 'Xbox Game Studios', rating: 4.8, size: '130 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1788546569', desc: 'สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถแข่งลิขสิทธิ์แท้หลายร้อยคัน', downloadUrl: 'https://store.steampowered.com/app/1551360/Forza_Horizon_5/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
-            { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games', rating: 4.9, size: '120 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง', downloadUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' }
+            { rank: 1, title: 'VALORANT', publisher: 'Riot Games • Tactical FPS', rating: 4.9, size: '30 GB', img: 'https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/7e2ef45dce7e7065feb7a0f43dbfefc33b7e9595-4001x2251.svg?accountingTag=VAL', desc: 'เกมยิงกลยุทธ์มุมมองบุคคลที่หนึ่งแบบ 5v5 เน้นดวลปืนและความสามารถตัวละคร', downloadUrl: 'https://playvalorant.com/', icon: 'fa-solid fa-globe', btnText: 'ดาวน์โหลดฟรีบน Riot Games' },
+            { rank: 2, title: 'Grand Theft Auto V', publisher: 'Rockstar Games • Open World', rating: 4.8, size: '110 GB', img: 'https://images.ctfassets.net/h1rqp7q66d54/3paoWCdthjPlrHzN81JhIa/2be86e3549bcf754a96776066fabe7d8/GTAV_Logo_1000x1000.svg?w=512&h=&fm=avif&q=75', desc: 'เกม Open World ระดับมหากาพย์ ท่องเมือง Los Santos แบบอิสระ', downloadUrl: 'https://store.rockstargames.com/game/buy-gta-v', icon: 'fa-solid fa-cart-shopping', btnText: 'ซื้อ/ดาวน์โหลดบน Rockstar Store' },
+            { rank: 3, title: 'EA Sports FC 24', publisher: 'Electronic Arts • กีฬา', rating: 4.5, size: '100 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2195250/header.jpg?t=1752167366', desc: 'เกมจำลองการแข่งขันฟุตบอลที่สมจริงที่สุดพร้อมลิขสิทธิ์นักเตะครบครัน', downloadUrl: 'https://store.steampowered.com/app/2195250/EA_SPORTS_FC_24/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 4, title: 'Cyberpunk 2077', publisher: 'CD PROJEKT RED • Action RPG', rating: 4.7, size: '70 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/48a93d6445a67520ea49833c93dae8f2e68fc540/header_alt_assets_9.jpg?t=1792682505', desc: 'เกม Action-RPG โอเพ่นเวิลด์ในเมืองไซเบอร์พังก์อนาคต Night City', downloadUrl: 'https://store.steampowered.com/app/1091500/Cyberpunk_2077/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 5, title: 'Elden Ring', publisher: 'FromSoftware • Action RPG', rating: 4.9, size: '60 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg?t=1790290043', desc: 'เกมแอ็กชัน RPG สไตล์ Soulslike การันตีรางวัล Game of the Year', downloadUrl: 'https://store.steampowered.com/app/1245620/ELDEN_RING/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 6, title: 'Apex Legends', publisher: 'Electronic Arts • Battle Royale', rating: 4.6, size: '75 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/dc5c390e9a273a7248f75c1b2d59987f6179323c/header_alt_assets_7.jpg?t=1794339458', desc: 'เกมยิง Battle Royale ฮีโร่ที่ต่อสู้ด้วยความเร็วและสกิลเฉพาะตัว', downloadUrl: 'https://store.steampowered.com/app/1172470/Apex_Legends/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
+            { rank: 7, title: 'Monster Hunter Wilds', publisher: 'CAPCOM • Action Hunting', rating: 4.8, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1787549555', desc: 'ออกล่ามอนสเตอร์ขนาดยักษ์ในระบบนิเวศสุดสมจริง ร่วมมือกับเพื่อนได้ 4 คน', downloadUrl: 'https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 8, title: 'Counter-Strike 2', publisher: 'Valve • Tactical FPS', rating: 4.6, size: '85 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg?t=1793054556', desc: 'การยกระดับเกมยิง Tactical FPS ระดับตำนานด้วย Source 2 Engine', downloadUrl: 'https://store.steampowered.com/app/730/CounterStrike_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดฟรีบน Steam' },
+            { rank: 9, title: 'Forza Horizon 5', publisher: 'Xbox Game Studios • แข่งรถ', rating: 4.8, size: '130 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg?t=1788546569', desc: 'สุดยอดเกมแข่งรถโอเพ่นเวิลด์ในแม็กซิโก พร้อมรถแข่งลิขสิทธิ์แท้หลายร้อยคัน', downloadUrl: 'https://store.steampowered.com/app/1551360/Forza_Horizon_5/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' },
+            { rank: 10, title: 'Red Dead Redemption 2', publisher: 'Rockstar Games • Open World', rating: 4.9, size: '120 GB', img: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg?t=1759502961', desc: 'เรื่องราวของคาวบอยยุคสุดท้ายในอเมริกา กราฟิกและเนื้อเรื่องระดับขึ้นหิ้ง', downloadUrl: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/', icon: 'fa-brands fa-steam', btnText: 'ดาวน์โหลดบน Steam' }
         ];
 
         function renderTopGames(data) {
-            const grid = document.getElementById('topGameGrid');
-            grid.innerHTML = data.map(game => {
+            const list = document.getElementById('topGameList');
+            list.innerHTML = data.map(game => {
                 let rankClass = game.rank <= 3 ? `rank-${game.rank}` : '';
                 return `
-                    <div class="game-card" onclick='openModal("gameModal", ${JSON.stringify(game)})'>
-                        <div class="rank-badge ${rankClass}">#${game.rank}</div>
-                        <div class="game-logo-wrapper">
-                            <img src="${game.img}" class="game-img" alt="${game.title}">
+                    <div class="game-row" onclick='openModal("gameModal", ${JSON.stringify(game)})'>
+                        <div class="rank-num ${rankClass}">${game.rank}</div>
+                        <div class="game-icon-box">
+                            <img src="${game.img}" alt="${game.title}">
                         </div>
-                        <div class="game-info">
-                            <div class="game-title">${game.title}</div>
-                            <div class="game-meta">
-                                <span>${game.publisher}</span>
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
+                        <div class="game-details">
+                            <div class="game-row-title">${game.title}</div>
+                            <div class="game-row-sub">${game.publisher}</div>
+                            <div class="game-row-stats">
+                                <span class="rating-star">${game.rating} <i class="fa-solid fa-star"></i></span>
+                                <span><i class="fa-solid fa-hard-drive"></i> ${game.size}</span>
                             </div>
+                        </div>
+                        <div class="game-row-action">
+                            <a href="${game.downloadUrl}" target="_blank" class="btn-install-pill" onclick="event.stopPropagation()">
+                                <i class="fa-solid fa-download"></i> ติดตั้ง
+                            </a>
                         </div>
                     </div>
                 `;
